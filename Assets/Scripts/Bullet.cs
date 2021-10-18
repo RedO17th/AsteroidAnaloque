@@ -2,11 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour
+public class Bullet : BasicCharacter
 {
-    [SerializeField] private BaseObjectView _view;
-
-    //-------------------------->
+    //--------------------------> [TODO][FIX]
     private int _amountDamage = 1;
 
     public Vector3 LocalPosition
@@ -19,8 +17,6 @@ public class Bullet : MonoBehaviour
         get => transform.localRotation;
         private set => transform.localRotation = value;
     }
-
-    public BaseObjectView ViewObject => _view;
 
     private ShootingMechanics _shootingMechanics;
 
@@ -41,7 +37,7 @@ public class Bullet : MonoBehaviour
         _startRotation = LocalRotation;
         _playersRigidbody = GetComponent<Rigidbody>();
 
-        _view.Initialize();
+        _view.Initialize(this);
     }
 
     public void Active(bool state = true)
@@ -75,7 +71,8 @@ public class Bullet : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        BaseCharacter character = collision.collider.GetComponent<BaseCharacter>();
+        //BaseCharacter character = collision.collider.GetComponent<BaseCharacter>();
+        BasicCharacter character = collision.collider.GetComponent<BaseObjectView>().Character;
         if (character)
         {
             character.TakeDamage(_amountDamage);

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : BaseCharacter
+public class Player : BasicMovingCharacter
 {
     private PlayerManagerSystem managerSystem;
     private Rigidbody _playersRigidbody;
@@ -19,7 +19,7 @@ public class Player : BaseCharacter
         managerSystem = manager;
         _rotateSpeed = managerSystem.RotateSpeed;
 
-        _view.Initialize();
+        _view.Initialize(this);
     }
 
     public void Activate(bool state = true)

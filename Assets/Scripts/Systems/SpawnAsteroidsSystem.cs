@@ -103,10 +103,10 @@ public class SpawnAsteroidsSystem : BaseSystem
         Asteroid newAsteroid = Create(position);
         newAsteroid.Activate(false);
 
-        _asteroidObjectPoolSystem.AddAsteroid(newAsteroid);
+        _asteroidObjectPoolSystem.AddBigAsteroid(newAsteroid);
     }
 
-    private Asteroid Create(Vector3 position)
+    public Asteroid Create(Vector3 position)
     {
         Asteroid newAsteroid = Instantiate(_asteroidPrefab, position, Quaternion.identity, _asteroidHandler);
         newAsteroid.Constructor(_asteroidsManagerSystem);

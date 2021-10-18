@@ -4,9 +4,15 @@ using UnityEngine;
 
 public abstract class BaseObjectView : MonoBehaviour
 {
+    public BasicCharacter Character => _character;
     public Collider Collider { get; private set; }
 
-    public abstract void Initialize();
+    private BasicCharacter _character;
+
+    public virtual void Initialize(BasicCharacter character) 
+    {
+        _character = character;
+    }
 
     protected void GetCollider<T>() where T : Collider
     {

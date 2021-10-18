@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public enum AsteroidsSize { None = -1, Big, Middle, Small }
+public enum AsteroidsSizeType { None = -1, Big, Middle, Small }
 
 public class AsteroidsManagerSystem : BaseSystem
 {
@@ -30,7 +30,14 @@ public class AsteroidsManagerSystem : BaseSystem
 
     public void SetAsteroidDeathEvent(Asteroid asteroid)
     {
-        _fractureMechanicsSystem.CheckSize(asteroid);
-        _asteroidObjectPoolSystem.SetSettings(asteroid);
+        _fractureMechanicsSystem.CheckSplitting(asteroid);
+
+        if (!_fractureMechanicsSystem.IsStandartSize(asteroid))
+        {
+            _asteroidObjectPoolSystem.RemoveCurrentAsteroid(asteroid);
+            asteroid.Destroy();
+        }
+        else
+            _asteroidObjectPoolSystem.SetNewPositionInSpace(asteroid);
     }
 }

@@ -15,7 +15,7 @@ public class ShootingMechanics : MonoBehaviour
     public float MaxWayLength { get; private set; } = 0;
 
     private SystemInitializer _systemInitializer;
-    private BaseCharacter _character;
+    private BasicMovingCharacter _character;
 
     public List<Bullet> _bullets = new List<Bullet>();
     private const float _amountScreenParts = 2f;

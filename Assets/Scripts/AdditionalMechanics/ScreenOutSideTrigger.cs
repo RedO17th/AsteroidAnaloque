@@ -23,7 +23,7 @@ public class ScreenOutSideTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        BaseCharacter character = other.attachedRigidbody.GetComponent<BaseCharacter>();
+        BasicMovingCharacter character = other.attachedRigidbody.GetComponent<BasicMovingCharacter>();
         if (character)
             _screenSystem.TeleportObject(this, character);
     }

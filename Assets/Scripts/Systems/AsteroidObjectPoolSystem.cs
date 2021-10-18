@@ -96,30 +96,30 @@ public class AsteroidObjectPoolSystem : BaseSystem
 
         return new Vector3(xCoord, yCoord);
     }
-    private float GetRandomSpeed()
+    public float GetRandomSpeed()
     {
         return Random.Range(_minSpeed, _maxSpeed);
     }
 
-    public void SetSettings(Asteroid asteroid)
+    public void SetNewPositionInSpace(Asteroid asteroid)
     {
         Vector3 newPosition = _spawnAsteroidsSystem.GetRandomPosition();
         asteroid.SetPosition(newPosition);
 
-        AddAsteroid(asteroid);
+        AddBigAsteroid(asteroid);
         RemoveCurrentAsteroid(asteroid);
     }
 
-    public void AddAsteroid(Asteroid asteroid)
+    public void AddBigAsteroid(Asteroid asteroid)
     {
         _asteroids.Add(asteroid);
     }
 
-    private void AddCurrentAsteroid(Asteroid asteroid)
+    public void AddCurrentAsteroid(Asteroid asteroid)
     {
         _curretAsteroids.Add(asteroid);
     }
-    private void RemoveCurrentAsteroid(Asteroid asteroid)
+    public void RemoveCurrentAsteroid(Asteroid asteroid)
     {
         _curretAsteroids.Remove(asteroid);
         CheckAmountCurrentAsteroids();

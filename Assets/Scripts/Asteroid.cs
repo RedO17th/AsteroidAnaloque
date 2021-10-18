@@ -1,15 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Asteroid : BaseCharacter
+public class Asteroid : BasicMovingCharacter
 {
-    [SerializeField] private AsteroidsSize _size;
+    [SerializeField] private AsteroidsSizeType _typeSize;
+
+    public AsteroidsSizeType TypeSize => _typeSize;
 
     private AsteroidsManagerSystem _asteroidsManagerSystem;
     private Rigidbody _rbAsteroid;
-
-    public AsteroidsSize Size => _size;
+    private AsteroidView _asteroidView;
 
     private void Awake()
     {
@@ -19,6 +18,13 @@ public class Asteroid : BaseCharacter
     public void Constructor(AsteroidsManagerSystem manager)
     {
         _asteroidsManagerSystem = manager;
+        InitializeView();
+    }
+
+    private void InitializeView()
+    {
+        _view.Initialize(this);
+        _asteroidView = (AsteroidView)_view;
     }
 
     public void Activate(bool state = true)
@@ -30,7 +36,16 @@ public class Asteroid : BaseCharacter
     {
         _rbAsteroid.AddForce(way, ForceMode.VelocityChange);
     }
-
+   
+    public void SetValueSize(float value)
+    {
+        _asteroidView.SetScale(value);
+    }
+    public void SetTypeSize(AsteroidsSizeType type)
+    {
+        _typeSize = type;
+    }
+        
     public Vector3 GetVelocity()
     {
         return _rbAsteroid.velocity;
@@ -38,10 +53,15 @@ public class Asteroid : BaseCharacter
 
     protected override void SetDeath()
     {
-        Activate(false);
         _asteroidsManagerSystem.SetAsteroidDeathEvent(this);
 
+        Activate(false);
         SetStopMovement();
+    }
+
+    public void Destroy()
+    {
+        Destroy(gameObject);
     }
 
     private void SetStopMovement()

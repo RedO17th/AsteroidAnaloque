@@ -364,10 +364,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _type: 5
-  _maxAmountAsteroids: 5
+  _maxAmountAsteroids: 3
   _areaTargetPoints: 0.5
   _minSpeed: 1
-  _maxSpeed: 3
+  _maxSpeed: 2
   _waveWaitingTime: 2
   _amountAtStartSession: 1
   _asteroids: []
@@ -1214,6 +1214,8 @@ MonoBehaviour:
     _scale: 0.5
   - _size: 1
     _scale: 0.35
+  _amountNewAsteroids: 2
+  _divergenceAngle: 45
 --- !u!1001 &2068192558
 PrefabInstance:
   m_ObjectHideFlags: 0
