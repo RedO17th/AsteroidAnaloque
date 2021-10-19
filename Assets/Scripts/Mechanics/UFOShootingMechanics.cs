@@ -13,7 +13,6 @@ public class UFOShootingMechanics : BaseShootingMechanics
     {
         if (CheckBulletsStorage())
         {
-            Debug.Log($"UFOShootingMechanics.Shoot");
             InitializeBullet();
             _timer = StartCoroutine(FrequencyTimer());
         }
@@ -29,6 +28,7 @@ public class UFOShootingMechanics : BaseShootingMechanics
 
     private void OnDisable()
     {
-        StopCoroutine(_timer);
+        if(_timer != null)
+            StopCoroutine(_timer);
     }
 }

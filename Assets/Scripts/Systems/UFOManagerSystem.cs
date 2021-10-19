@@ -42,12 +42,14 @@ public class UFOManagerSystem : BaseSystem
 
     private IEnumerator WaitingTimer()
     {
-        //float time = _ufoSpawnSystem.WaitingTime;
         yield return new WaitForSeconds(_ufoSpawnSystem.WaitingTime);
 
         _ufoCharacter.Activate();
         _ufoCharacter.Move(_ufoSpawnSystem.GetWayMovement());
+    }
 
+    public void Shooot()
+    {
         _shootingMechanics.Shoot();
     }
 

@@ -12,8 +12,6 @@ public class PlayerShootingMechanics : BaseShootingMechanics
     {
         if (_isCanShoot && CheckBulletsStorage())
         {
-            Debug.Log($"PlayerShootingMechanics.Shoot");
-
             _isCanShoot = false;
 
             InitializeBullet();

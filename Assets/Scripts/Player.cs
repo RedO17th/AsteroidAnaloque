@@ -19,7 +19,10 @@ public class Player : MovementCharacter
     public override void Move(Vector3 direction)
     {
         _rigidbody.AddRelativeForce(direction);
+    }
 
+    private void Update()
+    {
         SetCorrectSpeed();
     }
     private void SetCorrectSpeed()

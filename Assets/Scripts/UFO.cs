@@ -16,6 +16,8 @@ public class UFO : MovementCharacter
     private Quaternion _startRotation;
 
     private bool isDead = false;
+    private bool targetLocked = false;
+
 
     public void Constructor(UFOManagerSystem manager)
     {
@@ -28,10 +30,22 @@ public class UFO : MovementCharacter
         _baseCollisionMechanics.Constructor(this);
     }
 
+    public override void Activate(bool state = true)
+    {
+        base.Activate(state);
+        targetLocked = false;
+    }
+
     public override void Move(Vector3 direction)
     {
         isDead = false;
         _rigidbody.AddForce(direction, ForceMode.VelocityChange);
+    }
+
+    private void Update()
+    {
+        Rotate(new Vector3());
+        CheckTargeting();
     }
 
     public override void Rotate(Vector3 direction)
@@ -40,9 +54,19 @@ public class UFO : MovementCharacter
         _rigidbody.MoveRotation(Quaternion.LookRotation(dir, Vector3.forward));
     }
 
-    private void Update()
+    private void CheckTargeting()
     {
-        Rotate(new Vector3());
+        if (targetLocked) return;
+
+        Ray ray = new Ray(Position, transform.forward);
+        if(Physics.Raycast(ray, out RaycastHit hit))
+        {
+            if(hit.transform.GetComponent<Player>())
+            {
+                targetLocked = true;
+                _ufoManagerSystem.Shooot();
+            }
+        }
     }
 
     public override void SetDeath()

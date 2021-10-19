@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 993159179477875276}
   - component: {fileID: 4378934505801688060}
   m_Layer: 8
-  m_Name: Bullet
+  m_Name: BulletPlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -48,7 +48,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 120
   m_CollisionDetection: 0
 --- !u!114 &993159179477875276
 MonoBehaviour:
