@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Asteroid : BasicMovingCharacter
+public class Asteroid : SpatialCharacter
 {
     [SerializeField] private AsteroidsSizeType _typeSize;
 

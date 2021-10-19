@@ -71,7 +71,6 @@ public class Bullet : BasicCharacter
 
     private void OnCollisionEnter(Collision collision)
     {
-        //BaseCharacter character = collision.collider.GetComponent<BaseCharacter>();
         BasicCharacter character = collision.collider.GetComponent<BaseObjectView>().Character;
         if (character)
         {

@@ -31,7 +31,7 @@ public class BasicCharacter : MonoBehaviour
     }
 }
 
-public class BasicMovingCharacter : BasicCharacter
+public class SpatialCharacter : BasicCharacter
 {
     public Vector3 Position
     {
@@ -42,4 +42,22 @@ public class BasicMovingCharacter : BasicCharacter
     {
         Position = newPosition;
     }
+}
+
+public abstract class MovementCharacter : SpatialCharacter
+{
+    protected Rigidbody _rigidbody;
+
+    private void Awake()
+    {
+        _rigidbody = GetComponent<Rigidbody>();
+    }
+
+    public void Activate(bool state = true)
+    {
+        gameObject.SetActive(state);
+    }
+
+    public abstract void Move(Vector3 direction);
+    public abstract void Rotate(Vector3 direction);
 }

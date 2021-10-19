@@ -6,7 +6,7 @@ public class FlashingMechanics : MonoBehaviour
 {
     [SerializeField] private int _amountFlashingAtSec = 2;
 
-    private BasicMovingCharacter _character;
+    private SpatialCharacter _character;
 
     private bool _isActive = true;
 

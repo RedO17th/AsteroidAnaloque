@@ -39,7 +39,7 @@ public class ScreenSystem : BaseSystem
         return yVector.y;
     }
 
-    public void TeleportObject(ScreenOutSideTrigger trigger, BasicMovingCharacter character)
+    public void TeleportObject(ScreenOutSideTrigger trigger, SpatialCharacter character)
     {
         Vector3 newPosition = GetReversePosition(trigger, character.Position);
         character.SetPosition(newPosition);

@@ -2,16 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : BasicMovingCharacter
+public class Player : SpatialCharacter
 {
     private PlayerManagerSystem managerSystem;
-    private Rigidbody _playersRigidbody;
+    private Rigidbody _rigidbody;
 
     private float _rotateSpeed = 10f;
 
     private void Awake()
     {
-        _playersRigidbody = GetComponent<Rigidbody>();
+        _rigidbody = GetComponent<Rigidbody>();
     }
 
     public void Constructor(PlayerManagerSystem manager)
@@ -29,17 +29,17 @@ public class Player : BasicMovingCharacter
 
     public void Move(Vector3 direction)
     {
-        _playersRigidbody.AddRelativeForce(direction);
+        _rigidbody.AddRelativeForce(direction);
 
         SetCorrectSpeed();
     }
     private void SetCorrectSpeed()
     {
-        _playersRigidbody.velocity = Vector2.ClampMagnitude(_playersRigidbody.velocity, managerSystem.MaxSpeed);
+        _rigidbody.velocity = Vector2.ClampMagnitude(_rigidbody.velocity, managerSystem.MaxSpeed);
     }
 
     public void Rotate(Vector3 direction)
     {
-        _playersRigidbody.MoveRotation(transform.rotation * Quaternion.AngleAxis(_rotateSpeed, direction));
+        _rigidbody.MoveRotation(transform.rotation * Quaternion.AngleAxis(_rotateSpeed, direction));
     }
 }
