@@ -15,17 +15,22 @@ public class UFO : MovementCharacter
 
     private Quaternion _startRotation;
 
+    private bool isDead = false;
+
     public void Constructor(UFOManagerSystem manager)
     {
         _ufoManagerSystem = manager;
         _targetPlayer = manager.Player;
 
         _startRotation = Rotation;
+        
         _view.Initialize(this);
+        _baseCollisionMechanics.Constructor(this);
     }
 
     public override void Move(Vector3 direction)
     {
+        isDead = false;
         _rigidbody.AddForce(direction, ForceMode.VelocityChange);
     }
 
@@ -40,8 +45,12 @@ public class UFO : MovementCharacter
         Rotate(new Vector3());
     }
 
-    protected override void SetDeath()
+    public override void SetDeath()
     {
+        if (isDead) return;
+
+        isDead = true;
+
         Activate(false);
         SetStopMovement();
 

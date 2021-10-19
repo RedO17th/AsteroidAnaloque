@@ -58,7 +58,7 @@ public class UFOSpawnSystem : BaseSystem
     private IEnumerator WaitingTimer()
     {
         float time = Random.Range(_leftTimeBorder, _rightTimeBorder);
-        yield return new WaitForSeconds(time);
+        yield return new WaitForSeconds(1f);
 
         _ufo.Activate();
         _ufo.Move(GetWayMovement());

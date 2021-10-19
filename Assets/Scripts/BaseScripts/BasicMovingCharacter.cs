@@ -5,9 +5,15 @@ using UnityEngine;
 public class BasicCharacter : MonoBehaviour
 {
     [SerializeField] protected BaseObjectView _view;
+    [SerializeField] protected BaseCollisionMechanics _baseCollisionMechanics;
+
     [SerializeField] protected int _amountHealth;
+    [SerializeField] protected int _amountCollisionDamage;
 
     public BaseObjectView ViewObject => _view;
+    public int AmountCollisionDamage => _amountCollisionDamage;
+
+
 
     private void Awake()
     {
@@ -25,7 +31,7 @@ public class BasicCharacter : MonoBehaviour
             SetDeath();
     }
 
-    protected virtual void SetDeath()
+    public virtual void SetDeath()
     {
         Debug.Log($"BaseCharacter.SetDeath");
     }
@@ -53,7 +59,7 @@ public abstract class MovementCharacter : SpatialCharacter
         _rigidbody = GetComponent<Rigidbody>();
     }
 
-    public void Activate(bool state = true)
+    public virtual void Activate(bool state = true)
     {
         gameObject.SetActive(state);
     }

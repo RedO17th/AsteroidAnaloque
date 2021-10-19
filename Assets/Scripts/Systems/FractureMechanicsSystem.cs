@@ -98,7 +98,7 @@ public class FractureMechanicsSystem : BaseSystem
         Asteroid newAsteroid = _spawnAsteroidsSystem.Create(asteroid.Position);
         newAsteroid.SetTypeSize(data.NextType);
         newAsteroid.SetValueSize(data.CurrentScale);
-        newAsteroid.SetMovement(GetNewVelocity(asteroid, speed));
+        newAsteroid.Move(GetNewVelocity(asteroid, speed));
 
         return newAsteroid;
     }

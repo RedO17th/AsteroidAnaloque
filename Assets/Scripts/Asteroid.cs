@@ -1,19 +1,13 @@
 using UnityEngine;
 
-public class Asteroid : SpatialCharacter
+public class Asteroid : MovementCharacter
 {
     [SerializeField] private AsteroidsSizeType _typeSize;
 
     public AsteroidsSizeType TypeSize => _typeSize;
 
     private AsteroidsManagerSystem _asteroidsManagerSystem;
-    private Rigidbody _rbAsteroid;
     private AsteroidView _asteroidView;
-
-    private void Awake()
-    {
-        _rbAsteroid = GetComponent<Rigidbody>();
-    }
 
     public void Constructor(AsteroidsManagerSystem manager)
     {
@@ -27,15 +21,11 @@ public class Asteroid : SpatialCharacter
         _asteroidView = (AsteroidView)_view;
     }
 
-    public void Activate(bool state = true)
+    public override void Move(Vector3 direction)
     {
-        gameObject.SetActive(state);
+        _rigidbody.AddForce(direction, ForceMode.VelocityChange);
     }
-
-    public void SetMovement(Vector3 way)
-    {
-        _rbAsteroid.AddForce(way, ForceMode.VelocityChange);
-    }
+    public override void Rotate(Vector3 direction) { }
    
     public void SetValueSize(float value)
     {
@@ -48,10 +38,10 @@ public class Asteroid : SpatialCharacter
         
     public Vector3 GetVelocity()
     {
-        return _rbAsteroid.velocity;
+        return _rigidbody.velocity;
     }
 
-    protected override void SetDeath()
+    public override void SetDeath()
     {
         _asteroidsManagerSystem.SetAsteroidDeathEvent(this);
 
@@ -66,6 +56,10 @@ public class Asteroid : SpatialCharacter
 
     private void SetStopMovement()
     {
-        _rbAsteroid.velocity = Vector3.zero;
+        _rigidbody.velocity = Vector3.zero;
     }
+
+
+
+   
 }

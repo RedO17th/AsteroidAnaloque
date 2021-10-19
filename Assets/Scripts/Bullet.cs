@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class Bullet : BasicCharacter
 {
-    //--------------------------> [TODO][FIX]
-    private int _amountDamage = 1;
-
     public Vector3 LocalPosition
     {
         get => transform.localPosition;
@@ -27,6 +24,11 @@ public class Bullet : BasicCharacter
     private float _maxWayLength = 0;
     private float _speed = 0f;
 
+    private void Awake()
+    {
+        _playersRigidbody = GetComponent<Rigidbody>();
+    }
+
     public void Constructor(ShootingMechanics shootingMechanics)
     {
         _shootingMechanics = shootingMechanics;
@@ -35,9 +37,9 @@ public class Bullet : BasicCharacter
 
         _startPosition = LocalPosition;
         _startRotation = LocalRotation;
-        _playersRigidbody = GetComponent<Rigidbody>();
 
         _view.Initialize(this);
+        _baseCollisionMechanics.Constructor(this);
     }
 
     public void Active(bool state = true)
@@ -57,25 +59,23 @@ public class Bullet : BasicCharacter
     private void CheckOutOfScreen()
     {
         if (Vector3.Distance(_startPosition, LocalPosition) >= _maxWayLength)
-            DisactivateObject();
+            SetDeath();
     }
 
-    private void DisactivateObject()
+    public override void SetDeath()
     {
-        _playersRigidbody.velocity = Vector3.zero;
+        SetStopMovement();
+
         LocalPosition = _startPosition;
         LocalRotation = _startRotation;
+
         _shootingMechanics.SetBullet(this);
+
         Active(false);
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void SetStopMovement()
     {
-        BasicCharacter character = collision.collider.GetComponent<BaseObjectView>().Character;
-        if (character)
-        {
-            character.TakeDamage(_amountDamage);
-            DisactivateObject();
-        }
+        _playersRigidbody.velocity = Vector3.zero;
     }
 }
