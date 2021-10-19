@@ -9,7 +9,7 @@ public class PlayerManagerSystem : BaseSystem
 
     [Space]
     [Header("Additional Mechanics")]
-    [SerializeField] private ShootingMechanics _shootingMechanics;
+    [SerializeField] private BaseShootingMechanics _shootingMechanics;
     [SerializeField] private FlashingMechanics _flashingMechanics;
 
     //TO SO settings [TODO][FIX]
@@ -31,7 +31,7 @@ public class PlayerManagerSystem : BaseSystem
         inputSystem = (InputSystem)_systemInitializer.GetSystem(SystemType.InputSys);
 
         _player.Constructor(this);
-        _shootingMechanics.Constructor(this);
+        _shootingMechanics.Constructor(_systemInitializer);
         _flashingMechanics.Constructor(this);
 
         //Вынести в GC [TODO][FIX]

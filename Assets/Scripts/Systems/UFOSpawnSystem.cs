@@ -17,6 +17,14 @@ public class UFOSpawnSystem : BaseSystem
     [SerializeField] private float _leftTimeBorder = 20f;
     [SerializeField] private float _rightTimeBorder = 40f;
 
+    public float WaitingTime
+    {
+        get 
+        {
+            return Random.Range(_leftTimeBorder, _rightTimeBorder);
+        }
+    }
+
     private ScreenSystem _screenSystem;
     private UFOManagerSystem _ufoManagerSystem;
 
@@ -41,30 +49,9 @@ public class UFOSpawnSystem : BaseSystem
         _yMaxCoord = _screenSystem.YMaxCoord;
 
         _yMaxVerticalCoord = _yMaxCoord * _verticalOffset;
-    }
+    }   
 
-    public override void AdditionalInitialize()
-    {
-        _ufo.Constructor(_ufoManagerSystem);
-        UFOInitialize();
-    }
-
-    public void UFOInitialize()
-    {
-        _ufo.SetPosition(GetSpacePosition());
-        StartCoroutine(WaitingTimer());
-    }
-
-    private IEnumerator WaitingTimer()
-    {
-        float time = Random.Range(_leftTimeBorder, _rightTimeBorder);
-        yield return new WaitForSeconds(1f);
-
-        _ufo.Activate();
-        _ufo.Move(GetWayMovement());
-    }
-
-    private Vector3 GetSpacePosition()
+    public Vector3 GetSpacePosition()
     {
         SpawnAxis axis = GetSpawnAxis();
         return GetPosition(axis);
@@ -115,7 +102,7 @@ public class UFOSpawnSystem : BaseSystem
         return Random.Range(-_yMaxVerticalCoord, _yMaxVerticalCoord);
     }
 
-    private Vector3 GetWayMovement()
+    public Vector3 GetWayMovement()
     { 
         return _currentDirection * GetSpeed();
     }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bullet : BasicCharacter
+public class BaseBullet : BasicCharacter
 {
     public Vector3 LocalPosition
     {
@@ -15,7 +15,7 @@ public class Bullet : BasicCharacter
         private set => transform.localRotation = value;
     }
 
-    private ShootingMechanics _shootingMechanics;
+    private BaseShootingMechanics _shootingMechanics;
 
     private Rigidbody _playersRigidbody;
     private Vector3 _startPosition;
@@ -29,7 +29,7 @@ public class Bullet : BasicCharacter
         _playersRigidbody = GetComponent<Rigidbody>();
     }
 
-    public void Constructor(ShootingMechanics shootingMechanics)
+    public void Constructor(BaseShootingMechanics shootingMechanics)
     {
         _shootingMechanics = shootingMechanics;
         _speed = _shootingMechanics.BulletSpeed;

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: -1828651878775176877}
   - component: {fileID: 993159179477875276}
   - component: {fileID: 4378934505801688060}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -63,8 +63,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _view: {fileID: 763508375524155278}
-  _amountHealth: 1
   _baseCollisionMechanics: {fileID: 4378934505801688060}
+  _amountHealth: 1
   _amountCollisionDamage: 1
 --- !u!114 &4378934505801688060
 MonoBehaviour:
