@@ -43,12 +43,12 @@ public class FractureMechanicsSystem : BaseSystem
 
     public bool IsStandartSize(Asteroid asteroid)
     {
-        return asteroid.TypeSize == AsteroidsSizeType.Big;
+        return asteroid.TypeSize == AsteroidsSizeType.BigAsteroid;
     }
 
     public void CheckSplitting(Asteroid asteroid)
     {
-        if (asteroid.TypeSize == AsteroidsSizeType.Small) return;
+        if (asteroid.TypeSize == AsteroidsSizeType.SmallAsteroid) return;
 
         DetermineSize(asteroid);
     }
@@ -79,7 +79,7 @@ public class FractureMechanicsSystem : BaseSystem
     }
     private AsteroidsSizeType GetAsteroidType(int index)
     {
-        return (index < _scaleSize.Count) ? _scaleSize[index].Type : AsteroidsSizeType.Small;
+        return (index < _scaleSize.Count) ? _scaleSize[index].Type : AsteroidsSizeType.SmallAsteroid;
     }
 
     private void CreateNewAsteroid(Asteroid asteroid, ScaleBySizeData data)

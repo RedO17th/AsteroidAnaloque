@@ -15,6 +15,7 @@ public class UFOManagerSystem : BaseSystem
 
     private PlayerManagerSystem _playerManagerSystem;
     private UFOSpawnSystem _ufoSpawnSystem;
+    private ScoringSystem _scoringSystem;
 
     public SpatialCharacter Player { get; private set; }
 
@@ -22,6 +23,7 @@ public class UFOManagerSystem : BaseSystem
     {
         _playerManagerSystem = (PlayerManagerSystem)_systemInitializer.GetSystem(SystemType.PlayerManagerSys);
         _ufoSpawnSystem = (UFOSpawnSystem)_systemInitializer.GetSystem(SystemType.UFOSpawner);
+        _scoringSystem = (ScoringSystem)_systemInitializer.GetSystem(SystemType.ScoringSys);
         Player = _playerManagerSystem.Player;
 
         _shootingMechanics.Constructor(_systemInitializer);
@@ -53,9 +55,11 @@ public class UFOManagerSystem : BaseSystem
         _shootingMechanics.Shoot();
     }
 
-    public void SetDeathEvent()
+    public void SetDeathEvent(BasicCharacter character)
     {
         UFOInitialize();
+
+        _scoringSystem.SetSacrifice(character);
     }
 
 

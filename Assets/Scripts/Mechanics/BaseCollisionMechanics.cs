@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BaseCollisionMechanics : MonoBehaviour
 {
-    private BasicCharacter _ownerCharacter;
+    protected BasicCharacter _ownerCharacter;
 
     public void Constructor(BasicCharacter character)
     {
@@ -16,6 +16,8 @@ public class BaseCollisionMechanics : MonoBehaviour
         BasicCharacter character = collision.collider.GetComponent<BaseObjectView>().Character;
         if (character)
         {
+            character.SetKiller(_ownerCharacter);
+            
             character.TakeDamage(_ownerCharacter.AmountCollisionDamage);
             _ownerCharacter.SetDeath();
         }

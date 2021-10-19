@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class BasicCharacter : MonoBehaviour
 {
+    [SerializeField] protected ScoringSystem.CharacterType _type;
+
     [SerializeField] protected BaseObjectView _view;
     [SerializeField] protected BaseCollisionMechanics _baseCollisionMechanics;
 
@@ -12,8 +14,13 @@ public class BasicCharacter : MonoBehaviour
 
     public BaseObjectView ViewObject => _view;
     public int AmountCollisionDamage => _amountCollisionDamage;
+    public BasicCharacter Killer { get; private set; }
+    public ScoringSystem.CharacterType CharacterType => _type;
 
-
+    public void SetKiller(BasicCharacter character)
+    {
+        Killer = character;
+    }
 
     private void Awake()
     {

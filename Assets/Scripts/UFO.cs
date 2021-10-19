@@ -18,7 +18,6 @@ public class UFO : MovementCharacter
     private bool isDead = false;
     private bool targetLocked = false;
 
-
     public void Constructor(UFOManagerSystem manager)
     {
         _ufoManagerSystem = manager;
@@ -79,7 +78,7 @@ public class UFO : MovementCharacter
         SetStopMovement();
 
         Rotation = _startRotation;
-        _ufoManagerSystem.SetDeathEvent();
+        _ufoManagerSystem.SetDeathEvent(this);
     }
 
     private void SetStopMovement()

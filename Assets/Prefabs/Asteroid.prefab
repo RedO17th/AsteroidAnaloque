@@ -61,6 +61,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4e30918afd6ad94bb67bf6e0298ac90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _type: 1
   _view: {fileID: 942047814729747503}
   _baseCollisionMechanics: {fileID: 0}
   _amountHealth: 1

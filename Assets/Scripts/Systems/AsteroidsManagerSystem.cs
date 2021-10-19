@@ -4,13 +4,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public enum AsteroidsSizeType { None = -1, Big, Middle, Small }
+public enum AsteroidsSizeType { None = -1, BigAsteroid, MiddleAsteroid, SmallAsteroid }
 
 public class AsteroidsManagerSystem : BaseSystem
 {
     private ScreenSystem _screenSystem;
     private AsteroidObjectPoolSystem _asteroidObjectPoolSystem;
-    private FractureMechanicsSystem _fractureMechanicsSystem;
+    private FractureMechanicsSystem _fractureMechanicsSystem; 
+    private ScoringSystem _scoringSystem;
 
     public float XMaxCoord => _xMaxCoord;
     public float YMaxCoord => _yMaxCoord;
@@ -23,6 +24,7 @@ public class AsteroidsManagerSystem : BaseSystem
         _screenSystem = (ScreenSystem)_systemInitializer.GetSystem(SystemType.ScreenSys);
         _asteroidObjectPoolSystem = (AsteroidObjectPoolSystem)_systemInitializer.GetSystem(SystemType.AsteroidObjPoolSys);
         _fractureMechanicsSystem = (FractureMechanicsSystem)_systemInitializer.GetSystem(SystemType.FractureMechSys);
+        _scoringSystem = (ScoringSystem)_systemInitializer.GetSystem(SystemType.ScoringSys);
 
         _xMaxCoord = _screenSystem.XMaxCoord;
         _yMaxCoord = _screenSystem.YMaxCoord;
@@ -30,6 +32,7 @@ public class AsteroidsManagerSystem : BaseSystem
 
     public void SetAsteroidDeathEvent(Asteroid asteroid)
     {
+        _scoringSystem.SetSacrifice(asteroid);
         _fractureMechanicsSystem.CheckSplitting(asteroid);
 
         if (!_fractureMechanicsSystem.IsStandartSize(asteroid))
