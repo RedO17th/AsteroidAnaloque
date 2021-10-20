@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum SystemType { None = -1, PlayerManagerSys, InputSys, ScreenSys, AsteroidsManagerSys, SpawnAsteroidSys, AsteroidObjPoolSys, FractureMechSys, UFOManagerSys, UFOSpawner, ScoringSys }
+public enum SystemType { None = -1, PlayerManagerSys, InputSys, ScreenSys, AsteroidsManagerSys, SpawnAsteroidSys, 
+                        AsteroidObjPoolSys, FractureMechSys, UFOManagerSys, UFOSpawner, ScoringSys,
+                        UISys }
 
 public class SystemInitializer : MonoBehaviour
 {
