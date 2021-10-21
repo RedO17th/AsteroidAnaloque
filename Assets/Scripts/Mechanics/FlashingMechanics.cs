@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FlashingMechanics : MonoBehaviour
+public class FlashingMechanics : BaseMechanic
 {
     [SerializeField] private int _amountFlashingAtSec = 2;
 
@@ -13,19 +13,26 @@ public class FlashingMechanics : MonoBehaviour
     private const float _oneSecond = 1f;
     private float _amountIteration = 2f;
 
-    public void Constructor(PlayerManagerSystem playerManager)
+    public override void Constructor(SystemInitializer systemInitializer)
     {
-        _character = playerManager.Player;
+        base.Constructor(systemInitializer);
+        _character = ((PlayerManagerSystem)systemInitializer.GetSystem(SystemType.PlayerManagerSys)).Player;
     }
 
     public void Activate()
     {
+        _isActive = true;
         float time = (_oneSecond / _amountFlashingAtSec) / _amountIteration;
         StartCoroutine(FlashingTimer(time));
     }    
-    public void Deactivate()
+    private void Deactivate()
     {
         _isActive = false;
+    }
+
+    public override void TurnOffMechanics()
+    {
+        Deactivate();
     }
 
     IEnumerator FlashingTimer(float time)

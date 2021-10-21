@@ -22,7 +22,7 @@ public class BasicCharacter : MonoBehaviour
         Killer = character;
     }
 
-    private void Awake()
+    protected virtual void Awake()
     {
         _view.Initialize(this);
     }
@@ -40,7 +40,7 @@ public class BasicCharacter : MonoBehaviour
 
     public virtual void SetDeath()
     {
-        Debug.Log($"BaseCharacter.SetDeath");
+        Killer = null;
     }
 }
 
@@ -61,8 +61,9 @@ public abstract class MovementCharacter : SpatialCharacter
 {
     protected Rigidbody _rigidbody;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         _rigidbody = GetComponent<Rigidbody>();
     }
 

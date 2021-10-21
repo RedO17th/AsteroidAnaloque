@@ -31,4 +31,11 @@ public class UFOShootingMechanics : BaseShootingMechanics
         if(_timer != null)
             StopCoroutine(_timer);
     }
+
+    public override void TurnOffMechanics()
+    {
+        if (_timer != null) StopCoroutine(_timer);
+
+        base.TurnOffMechanics();
+    }
 }

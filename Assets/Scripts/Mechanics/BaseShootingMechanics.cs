@@ -2,7 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BaseShootingMechanics : MonoBehaviour
+public class BaseMechanic : MonoBehaviour
+{
+    protected SystemInitializer _systemInitializer;
+
+    public virtual void Constructor(SystemInitializer systemInitializer)
+    {
+        _systemInitializer = systemInitializer;
+    }
+
+    public virtual void TurnOffMechanics() { }
+}
+
+public class BaseShootingMechanics : BaseMechanic
 {
     [SerializeField] protected Transform _bulletSpawner;
     [SerializeField] protected BaseBullet _bulletPrefab;
@@ -13,27 +25,24 @@ public class BaseShootingMechanics : MonoBehaviour
     public float BulletSpeed => _bulletSpeed;
     public float MaxWayLength { get; private set; } = 0;
 
-    protected SystemInitializer _systemInitializer;
-
     public List<BaseBullet> _bullets = new List<BaseBullet>();
     private const float _amountScreenParts = 2f;
 
-    public void Constructor(SystemInitializer systemInitializer)
+    public override void Constructor(SystemInitializer systemInitializer)
     {
-        _systemInitializer = systemInitializer;
+        base.Constructor(systemInitializer);
 
         GetMaxWayLength((ScreenSystem)_systemInitializer.GetSystem(SystemType.ScreenSys));
-        InitializePoolBullets();
     }
 
-    public void GetMaxWayLength(ScreenSystem screenSystem)
+    protected void GetMaxWayLength(ScreenSystem screenSystem)
     {
         MaxWayLength = screenSystem.XMaxCoord * _amountScreenParts;
         if(MaxWayLength == 0)
             Debug.LogError($"BaseShootingMechanics.GetMaxWayLength: MaxWayLength = 0");
     }
 
-    protected void InitializePoolBullets()
+    public void InitializePoolBullets()
     {
         for (int i = 0; i < _amountBullets; i++)
         {
@@ -51,7 +60,7 @@ public class BaseShootingMechanics : MonoBehaviour
         return newBullet;
     }
 
-    public void SetBullet(BaseBullet bullet)
+    private void SetBullet(BaseBullet bullet)
     {
         _bullets.Add(bullet);
     }
@@ -78,7 +87,16 @@ public class BaseShootingMechanics : MonoBehaviour
     {
         BaseBullet bullet = _bullets[0];
         _bullets.Remove(bullet);
+        SetBullet(bullet);
 
         return bullet;
+    }
+
+    public override void TurnOffMechanics()
+    {
+        for (int i = 0; i < _bullets.Count; i++)
+            Destroy(_bullets[i].gameObject);
+
+        _bullets.Clear();
     }
 }

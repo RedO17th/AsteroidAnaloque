@@ -21,6 +21,7 @@ public class AsteroidsManagerSystem : BaseSystem
 
     protected override void InitializeData()
     {
+        _systemInitializer.GameController.OnStartGameEvent += InitializeAsteroidsApperiance;
         _screenSystem = (ScreenSystem)_systemInitializer.GetSystem(SystemType.ScreenSys);
         _asteroidObjectPoolSystem = (AsteroidObjectPoolSystem)_systemInitializer.GetSystem(SystemType.AsteroidObjPoolSys);
         _fractureMechanicsSystem = (FractureMechanicsSystem)_systemInitializer.GetSystem(SystemType.FractureMechSys);
@@ -28,6 +29,11 @@ public class AsteroidsManagerSystem : BaseSystem
 
         _xMaxCoord = _screenSystem.XMaxCoord;
         _yMaxCoord = _screenSystem.YMaxCoord;
+    }
+
+    private void InitializeAsteroidsApperiance()
+    {
+        _asteroidObjectPoolSystem.InitializeAsteroids();
     }
 
     public void SetAsteroidDeathEvent(Asteroid asteroid)

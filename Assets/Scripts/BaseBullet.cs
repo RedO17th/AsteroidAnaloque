@@ -64,12 +64,11 @@ public class BaseBullet : BasicCharacter
 
     public override void SetDeath()
     {
+        base.SetDeath();
         SetStopMovement();
 
         LocalPosition = _startPosition;
         LocalRotation = _startRotation;
-
-        _shootingMechanics.SetBullet(this);
 
         Active(false);
     }

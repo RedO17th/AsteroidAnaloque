@@ -79,10 +79,13 @@ public class UFO : MovementCharacter
 
         Rotation = _startRotation;
         _ufoManagerSystem.SetDeathEvent(this);
+
+        base.SetDeath();
     }
 
     private void SetStopMovement()
     {
-        _rigidbody.velocity = Vector3.zero;
+        if(_rigidbody != null)
+            _rigidbody.velocity = Vector3.zero;
     }
 }

@@ -26,24 +26,34 @@ public class PlayerManagerSystem : BaseSystem
 
     private Vector3 _direction = Vector3.zero;
 
+    private Coroutine _invulnerabilityTimer;
+
     protected override void InitializeData()
     {
+        _systemInitializer.GameController.OnStartGameEvent += InitializePlayerAppearence;
         inputSystem = (InputSystem)_systemInitializer.GetSystem(SystemType.InputSys);
 
         _player.Constructor(this);
-        _shootingMechanics.Constructor(_systemInitializer);
-        _flashingMechanics.Constructor(this);
 
-        //Вынести в GC [TODO][FIX]
-        InitializePlayerAppearence();
+        //------------------------------------------------------------BaseMech
+        _shootingMechanics.Constructor(_systemInitializer);
+        _flashingMechanics.Constructor(_systemInitializer);
+
+        _shootingMechanics.InitializePoolBullets();
     }
 
-    public void InitializePlayerAppearence()
+    private void InitializePlayerAppearence()
+    {
+        PreparePlayer();
+        SetInputEvents();
+        _invulnerabilityTimer = StartCoroutine(InvulnerabilityTimer());
+    }
+
+    private void PreparePlayer()
     {
         _player.Activate();
-
-        SetInputEvents();
-        StartCoroutine(InvulnerabilityTimer());
+        _player.SetStartPosition(Vector3.zero);
+        _player.SetRestSpeedAndRotation();
     }
 
     private void SetInputEvents()
@@ -65,7 +75,7 @@ public class PlayerManagerSystem : BaseSystem
 
         yield return new WaitForSeconds(_invulnerabilityime);
 
-        _flashingMechanics.Deactivate();
+        _flashingMechanics.TurnOffMechanics();
     }
 
     private void MovementMechanic(float verticalInput)
@@ -86,5 +96,15 @@ public class PlayerManagerSystem : BaseSystem
     private void OnDisable()
     {
         UnSetInputEvents();
+    }
+
+    public override void OffSystem()
+    {
+        _player.Activate(false);
+
+        _flashingMechanics.TurnOffMechanics();
+
+        UnSetInputEvents();
+        if(_invulnerabilityTimer != null) StopCoroutine(_invulnerabilityTimer);
     }
 }

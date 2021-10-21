@@ -45,6 +45,7 @@ public class Asteroid : MovementCharacter
     {
         _asteroidsManagerSystem.SetAsteroidDeathEvent(this);
 
+        base.SetDeath();
         Activate(false);
         SetStopMovement();
     }

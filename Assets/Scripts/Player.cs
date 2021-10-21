@@ -4,16 +4,43 @@ using UnityEngine;
 
 public class Player : MovementCharacter
 {
+    public Quaternion Rotation
+    {
+        get => transform.rotation;
+        private set => transform.rotation = value;
+    }
+
     private PlayerManagerSystem managerSystem;
+
+    private Vector3 _tempVelocity;
+    private Vector3 _startVelocity = Vector3.zero;
+    private Quaternion _tempRotation;
 
     private float _rotateSpeed = 10f;
 
     public void Constructor(PlayerManagerSystem manager)
     {
         managerSystem = manager;
-        _rotateSpeed = managerSystem.RotateSpeed;
 
         _view.Initialize(this);
+
+        _tempRotation = Rotation;
+        _tempVelocity = _startVelocity;
+        _rotateSpeed = managerSystem.RotateSpeed;
+    }
+
+    public override void Activate(bool state = true)
+    {
+        base.Activate(state);
+    }
+    public void SetStartPosition(Vector3 position)
+    {
+        Position = position;
+    }
+    public void SetRestSpeedAndRotation()
+    {
+        Rotation = _tempRotation;
+        _rigidbody.velocity = _tempVelocity;
     }
 
     public override void Move(Vector3 direction)

@@ -20,5 +20,7 @@ public class BaseSystem : MonoBehaviour
     protected virtual void InitializeData() { }
 
     public virtual void AdditionalInitialize() { }
+
+    public virtual void OffSystem() { }
 }
 

@@ -11,16 +11,19 @@ public class UFOManagerSystem : BaseSystem
     [SerializeField] private float _timeToCrossScreen = 10f;
 
     public UFO UFOCharacter => _ufoCharacter;
+    public SpatialCharacter Player { get; private set; }
     public float TimeToCrossScreen => _timeToCrossScreen;
 
     private PlayerManagerSystem _playerManagerSystem;
     private UFOSpawnSystem _ufoSpawnSystem;
     private ScoringSystem _scoringSystem;
 
-    public SpatialCharacter Player { get; private set; }
+    private Coroutine _waitingTimer;
+
 
     protected override void InitializeData()
     {
+        _systemInitializer.GameController.OnStartGameEvent += InitializeUFOApperiance;
         _playerManagerSystem = (PlayerManagerSystem)_systemInitializer.GetSystem(SystemType.PlayerManagerSys);
         _ufoSpawnSystem = (UFOSpawnSystem)_systemInitializer.GetSystem(SystemType.UFOSpawner);
         _scoringSystem = (ScoringSystem)_systemInitializer.GetSystem(SystemType.ScoringSys);
@@ -32,14 +35,13 @@ public class UFOManagerSystem : BaseSystem
     public override void AdditionalInitialize()
     {
         _ufoCharacter.Constructor(this);
-
-        UFOInitialize();
+        _shootingMechanics.InitializePoolBullets();
     }
 
-    private void UFOInitialize()
+    private void InitializeUFOApperiance()
     {
         _ufoCharacter.SetPosition(_ufoSpawnSystem.GetSpacePosition());
-        StartCoroutine(WaitingTimer());
+        _waitingTimer = StartCoroutine(WaitingTimer());
     }
 
     private IEnumerator WaitingTimer()
@@ -57,10 +59,14 @@ public class UFOManagerSystem : BaseSystem
 
     public void SetDeathEvent(BasicCharacter character)
     {
-        UFOInitialize();
+        InitializeUFOApperiance();
 
         _scoringSystem.SetSacrifice(character);
     }
-
+    public override void OffSystem()
+    {
+        _ufoCharacter.SetDeath();
+        if (_waitingTimer != null) StopCoroutine(_waitingTimer);
+    }
 
 }

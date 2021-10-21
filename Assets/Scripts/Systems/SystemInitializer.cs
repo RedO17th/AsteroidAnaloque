@@ -10,21 +10,23 @@ public class SystemInitializer : MonoBehaviour
 {
     [SerializeField] private List<BaseSystem> _baseSystems;
 
-    private void Awake() => InitializeSystems();
-    private void InitializeSystems()
+    public GameController GameController { get; private set; }
+
+    public void Constructor(GameController controller)
+    {
+        GameController = controller;
+    }
+
+    public void InitializeSystems()
     {
         for (int i = 0; i < _baseSystems.Count; i++)
             _baseSystems[i].Constructor(this);
     }
-
-
-    private void Start() => AdditionalInitialize(); 
-    private void AdditionalInitialize()
+    public void AdditionalInitialize()
     {
         for (int i = 0; i < _baseSystems.Count; i++)
             _baseSystems[i].AdditionalInitialize();
     }
-
 
     public BaseSystem GetSystem(SystemType type)
     {
@@ -37,8 +39,12 @@ public class SystemInitializer : MonoBehaviour
 
         return system;
     }
-    
 
+    public void TurnOffSystems()
+    {
+        for (int i = 0; i < _baseSystems.Count; i++)
+            _baseSystems[i].OffSystem();
+    }
 
 
 }

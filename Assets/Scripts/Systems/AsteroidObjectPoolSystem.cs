@@ -19,6 +19,8 @@ public class AsteroidObjectPoolSystem : BaseSystem
     private AsteroidsManagerSystem _asteroidsManagerSystem;
     private SpawnAsteroidsSystem _spawnAsteroidsSystem;
 
+    private Coroutine _waveWaitingTimer;
+
     private int _currentAmountAtSession = 0;
 
     private float _xMaxCoord = 0f;
@@ -38,7 +40,7 @@ public class AsteroidObjectPoolSystem : BaseSystem
         _currentAmountAtSession = _amountAtStartSession;
     }
 
-    public override void AdditionalInitialize()
+    public void InitializeAsteroids()
     {
         _spawnAsteroidsSystem.ToPrepareAsteroids(_maxAmountAsteroids);
         LaunchAsteroids();        
@@ -132,7 +134,7 @@ public class AsteroidObjectPoolSystem : BaseSystem
             _currentAmountAtSession++;
             if (_currentAmountAtSession > _maxAmountAsteroids) _currentAmountAtSession = _maxAmountAsteroids;
 
-            StartCoroutine(WaveWaitingTimer());
+            _waveWaitingTimer = StartCoroutine(WaveWaitingTimer());
         }
     }
     private IEnumerator WaveWaitingTimer()
@@ -141,6 +143,24 @@ public class AsteroidObjectPoolSystem : BaseSystem
 
         yield return new WaitForSeconds(_waveWaitingTime);
         LaunchAsteroids();
+    }
+
+    public override void OffSystem()
+    {
+        if (_waveWaitingTimer != null) StopCoroutine(_waveWaitingTimer);
+
+        DestroyAsteroids();
+    }
+
+    private void DestroyAsteroids()
+    {
+        for (int i = 0; i < _curretAsteroids.Count; i++)
+            Destroy(_curretAsteroids[i].gameObject);
+        _curretAsteroids.Clear();
+
+        for (int i = 0; i < _asteroids.Count; i++)
+            Destroy(_asteroids[i].gameObject);
+        _asteroids.Clear();
     }
 
 }

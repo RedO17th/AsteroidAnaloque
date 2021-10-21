@@ -8,6 +8,8 @@ public class PlayerShootingMechanics : BaseShootingMechanics
 
     private bool _isCanShoot = true;
 
+    private Coroutine _frequencyTimer;
+
     public override void Shoot()
     {
         if (_isCanShoot && CheckBulletsStorage())
@@ -15,7 +17,7 @@ public class PlayerShootingMechanics : BaseShootingMechanics
             _isCanShoot = false;
 
             InitializeBullet();
-            StartCoroutine(FrequencyTimer());
+            _frequencyTimer = StartCoroutine(FrequencyTimer());
         }
     }
 
@@ -23,5 +25,13 @@ public class PlayerShootingMechanics : BaseShootingMechanics
     {
         yield return new WaitForSeconds(_shotFrequency);
         _isCanShoot = true;
+    }
+
+    public override void TurnOffMechanics()
+    {
+        if(_frequencyTimer != null) StopCoroutine(_frequencyTimer);
+
+        _isCanShoot = true;
+        base.TurnOffMechanics();
     }
 }
