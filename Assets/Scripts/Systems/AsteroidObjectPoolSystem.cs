@@ -151,6 +151,7 @@ public class AsteroidObjectPoolSystem : BaseSystem
         if (_waveWaitingTimer != null) StopCoroutine(_waveWaitingTimer);
 
         DestroyAsteroids();
+        _currentAmountAtSession = _amountAtStartSession;
     }
 
     private void DestroyAsteroids()

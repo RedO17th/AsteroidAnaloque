@@ -91,12 +91,4 @@ public class BaseShootingMechanics : BaseMechanic
 
         return bullet;
     }
-
-    public override void TurnOffMechanics()
-    {
-        for (int i = 0; i < _bullets.Count; i++)
-            Destroy(_bullets[i].gameObject);
-
-        _bullets.Clear();
-    }
 }

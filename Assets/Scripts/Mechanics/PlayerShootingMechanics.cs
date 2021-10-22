@@ -12,6 +12,8 @@ public class PlayerShootingMechanics : BaseShootingMechanics
 
     public override void Shoot()
     {
+        Debug.Log($"PlayerShootingMechanics.Shoot");
+
         if (_isCanShoot && CheckBulletsStorage())
         {
             _isCanShoot = false;
@@ -29,9 +31,8 @@ public class PlayerShootingMechanics : BaseShootingMechanics
 
     public override void TurnOffMechanics()
     {
-        if(_frequencyTimer != null) StopCoroutine(_frequencyTimer);
+        if (_frequencyTimer != null) StopCoroutine(_frequencyTimer);
 
         _isCanShoot = true;
-        base.TurnOffMechanics();
     }
 }

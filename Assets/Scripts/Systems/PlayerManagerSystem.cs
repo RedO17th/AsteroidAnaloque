@@ -96,12 +96,14 @@ public class PlayerManagerSystem : BaseSystem
     private void OnDisable()
     {
         UnSetInputEvents();
+        _systemInitializer.GameController.OnStartGameEvent -= InitializePlayerAppearence;
     }
 
     public override void OffSystem()
     {
         _player.Activate(false);
 
+        _shootingMechanics.TurnOffMechanics();
         _flashingMechanics.TurnOffMechanics();
 
         UnSetInputEvents();

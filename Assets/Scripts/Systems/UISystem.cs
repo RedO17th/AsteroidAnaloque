@@ -8,21 +8,27 @@ public class UISystem : BaseSystem
 {
     [SerializeField] private UIManager _uiManager;
 
-    private GameController _gameController;
+    [SerializeField] private int _startScoreValue = 0;
 
-    public bool IsFirstLaunch
+    private GameController _gameController;
+    private ScoringSystem _scoringSystem;
+
+    public bool IsSessionStart
     {
         get => _gameController.IsSessionStart;
     }
+    public int StartScoreValue => _startScoreValue;
 
     protected override void InitializeData()
     {
         _gameController = _systemInitializer.GameController;
+        _scoringSystem = (ScoringSystem)_systemInitializer.GetSystem(SystemType.ScoringSys);
     }
 
     public override void AdditionalInitialize()
     {
         _uiManager.Constructor(this);
+        _scoringSystem.OnSetScoreEvent += SetPlayerScore;
     }
 
     public void SetMainMenuMechanic(MainMenuMechanics mechanics)
@@ -50,4 +56,15 @@ public class UISystem : BaseSystem
                 }
         }
     }
+
+    private void SetPlayerScore(int score)
+    {
+        _uiManager.SetScore(score);
+    }
+
+    private void OnDisable()
+    {
+        _scoringSystem.OnSetScoreEvent -= SetPlayerScore;
+    }
+
 }

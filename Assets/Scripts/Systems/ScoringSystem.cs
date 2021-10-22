@@ -15,11 +15,25 @@ public class ScoreByCharacter
 public class ScoringSystem : BaseSystem
 {
     public enum CharacterType { None = -1, MainPlayer, AsteroidPlayer, UFOPlayer }
-    public enum EnemyType { None = -1, BigAsteroid, MiddleAsteroid, SmallAsteroid, UFOPlayer } 
+    public enum EnemyType { None = -1, BigAsteroid, MiddleAsteroid, SmallAsteroid, UFOPlayer }
 
+    public delegate void SetScoreDelegate(int score);
+    public event SetScoreDelegate OnSetScoreEvent;
+
+    [SerializeField] private int _totalScore = 0;
     [SerializeField] private List<ScoreByCharacter> _scoreList;
 
-    public int TotalScore = 0;
+    private GameController _gameController;
+
+    protected override void InitializeData()
+    {
+        _gameController = _systemInitializer.GameController;
+    }
+
+    public override void AdditionalInitialize()
+    {
+        _gameController.OnStartGameEvent += NullifySystem;
+    }
 
     public void SetSacrifice(BasicCharacter character)
     {
@@ -45,10 +59,10 @@ public class ScoringSystem : BaseSystem
                 }
         }
 
-        int score = GetScore(type);
-
-        Debug.Log($"ScoringSystem.SetScoreByEnemyType: Полученные баллы = { score } ");
+        int score = GetScoreByChar(type);
+        
         SetScore(score);
+        OnSetScoreEvent?.Invoke(_totalScore);
     }
 
     private EnemyType DetermineTheTypeOfAsteroid(Asteroid asteroid)
@@ -79,10 +93,10 @@ public class ScoringSystem : BaseSystem
 
     private void SetScore(int score)
     {
-        TotalScore += score;
+        _totalScore += score;
     }
 
-    private int GetScore(EnemyType type)
+    private int GetScoreByChar(EnemyType type)
     {
         int score = 0;
         for (int i = 0; i < _scoreList.Count; i++)
@@ -94,5 +108,15 @@ public class ScoringSystem : BaseSystem
         }
 
         return score;
+    }
+
+    private void NullifySystem()
+    {
+        _totalScore = 0;
+    }
+
+    private void OnDisable()
+    {
+        _gameController.OnStartGameEvent -= NullifySystem;
     }
 }

@@ -37,6 +37,7 @@ public class UIManager : MonoBehaviour
                 {
                     ShowMenu(false);
                     ShowGamePlayMenu();
+                    InitializeGamePlayWindow();
                     break;
                 }
             case MainMenuMechanics.Pause:
@@ -64,5 +65,15 @@ public class UIManager : MonoBehaviour
     private void ShowGamePlayMenu(bool state = true)
     {
         _gamePlayWindow.Activate(state);
+    }
+
+    private void InitializeGamePlayWindow()
+    {
+        _gamePlayWindow.InitializeStartData();
+    }
+
+    public void SetScore(int score)
+    {
+        _gamePlayWindow.SetScore(score);
     }
 }

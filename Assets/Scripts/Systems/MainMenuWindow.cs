@@ -18,20 +18,19 @@ public class MainMenuWindow : MonoBehaviour
     {
         _uiManager = uIManager;
     }
+
     public void Activate(bool state)
     {
         gameObject.SetActive(state);
-        _continueBtn.ActivateFunctional(_uiManager.UISystem.IsFirstLaunch);
-    }
-    private void OnEnable()
-    {
-        InitializeWindow();
-    }
-    private void InitializeWindow()
-    {
+        _continueBtn.ActivateFunctional(_uiManager.UISystem.IsSessionStart);
         InitializeListeners();
     }
     //
+
+    private void Awake()
+    {
+        InitializeListeners();
+    }
 
     private void InitializeListeners()
     {

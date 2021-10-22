@@ -66,6 +66,7 @@ public class UFOManagerSystem : BaseSystem
     public override void OffSystem()
     {
         _ufoCharacter.SetDeath();
+        _shootingMechanics.TurnOffMechanics();
         if (_waitingTimer != null) StopCoroutine(_waitingTimer);
     }
 
