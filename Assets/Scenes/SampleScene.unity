@@ -822,7 +822,7 @@ GameObject:
   - component: {fileID: 637539715}
   - component: {fileID: 637539714}
   - component: {fileID: 637539717}
-  - component: {fileID: 637539716}
+  - component: {fileID: 637539718}
   m_Layer: 0
   m_Name: UFO
   m_TagString: Untagged
@@ -859,9 +859,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _type: 2
   _view: {fileID: 719228250}
-  _baseCollisionMechanics: {fileID: 637539716}
+  _baseCollisionMechanics: {fileID: 637539718}
   _amountHealth: 1
   _amountCollisionDamage: 1
+  Killer: {fileID: 0}
 --- !u!54 &637539715
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -878,18 +879,6 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 120
   m_CollisionDetection: 0
---- !u!114 &637539716
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 637539712}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf8305ec4f4011d4e9f07af7ecc4c2f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &637539717
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -909,6 +898,18 @@ MonoBehaviour:
   _bullets: []
   _shotFrequencyMin: 2
   _shotFrequencyMax: 5
+--- !u!114 &637539718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 637539712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35f400b8446c42947897f3acb4523ecd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &639415029
 GameObject:
   m_ObjectHideFlags: 0
@@ -1044,7 +1045,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8959a70a4fa1d8141a34c07a0a24242a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _continueBtn: {fileID: 1333197514}
+  _continueBtn: {fileID: 1333197517}
   _newGameBtn: {fileID: 1677653899}
   _exitBtn: {fileID: 1803836952}
 --- !u!1 &705507993
@@ -2101,6 +2102,7 @@ GameObject:
   - component: {fileID: 1333197516}
   - component: {fileID: 1333197515}
   - component: {fileID: 1333197514}
+  - component: {fileID: 1333197517}
   m_Layer: 5
   m_Name: ContinueButton
   m_TagString: Untagged
@@ -2167,7 +2169,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 1333197515}
   m_OnClick:
     m_PersistentCalls:
@@ -2210,6 +2212,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1333197512}
   m_CullTransparentMesh: 1
+--- !u!114 &1333197517
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1333197512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5937dbfa66a5dba468985ee51736a765, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1364343074
 GameObject:
   m_ObjectHideFlags: 0
@@ -3229,6 +3243,7 @@ MonoBehaviour:
   _baseCollisionMechanics: {fileID: 0}
   _amountHealth: 1
   _amountCollisionDamage: 0
+  Killer: {fileID: 0}
 --- !u!114 &2106525925
 MonoBehaviour:
   m_ObjectHideFlags: 0

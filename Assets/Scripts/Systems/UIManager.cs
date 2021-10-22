@@ -10,6 +10,8 @@ public class UIManager : MonoBehaviour
 
     private UISystem _uiSystem;
 
+    public UISystem UISystem => _uiSystem;
+
     public void Constructor(UISystem uISystem)
     {
         _uiSystem = uISystem;

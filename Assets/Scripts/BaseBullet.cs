@@ -24,8 +24,9 @@ public class BaseBullet : BasicCharacter
     private float _maxWayLength = 0;
     private float _speed = 0f;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         _playersRigidbody = GetComponent<Rigidbody>();
     }
 
@@ -38,7 +39,6 @@ public class BaseBullet : BasicCharacter
         _startPosition = LocalPosition;
         _startRotation = LocalRotation;
 
-        _view.Initialize(this);
         _baseCollisionMechanics.Constructor(this);
     }
 

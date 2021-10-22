@@ -11,14 +11,14 @@ public class BaseCollisionMechanics : MonoBehaviour
         _ownerCharacter = character;
     }
 
-    private void OnCollisionEnter(Collision collision)
+    protected virtual void OnCollisionEnter(Collision collision)
     {
         BasicCharacter character = collision.collider.GetComponent<BaseObjectView>().Character;
         if (character)
         {
             character.SetKiller(_ownerCharacter);
-            
             character.TakeDamage(_ownerCharacter.AmountCollisionDamage);
+
             _ownerCharacter.SetDeath();
         }
     }

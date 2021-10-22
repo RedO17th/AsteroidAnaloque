@@ -10,6 +10,11 @@ public class UISystem : BaseSystem
 
     private GameController _gameController;
 
+    public bool IsFirstLaunch
+    {
+        get => _gameController.IsSessionStart;
+    }
+
     protected override void InitializeData()
     {
         _gameController = _systemInitializer.GameController;
@@ -45,5 +50,4 @@ public class UISystem : BaseSystem
                 }
         }
     }
-
 }

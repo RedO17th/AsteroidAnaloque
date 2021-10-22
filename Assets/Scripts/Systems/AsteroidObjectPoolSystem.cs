@@ -76,6 +76,7 @@ public class AsteroidObjectPoolSystem : BaseSystem
     private void Launch(Asteroid asteroid)
     {
         Vector3 way = GetWay(asteroid);
+        asteroid.SetKiller(null);
         asteroid.Activate();
         asteroid.Move(way);
     }

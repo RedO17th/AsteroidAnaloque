@@ -20,7 +20,6 @@ public class UFOManagerSystem : BaseSystem
 
     private Coroutine _waitingTimer;
 
-
     protected override void InitializeData()
     {
         _systemInitializer.GameController.OnStartGameEvent += InitializeUFOApperiance;
@@ -48,6 +47,7 @@ public class UFOManagerSystem : BaseSystem
     {
         yield return new WaitForSeconds(_ufoSpawnSystem.WaitingTime);
 
+        _ufoCharacter.SetKiller(null);
         _ufoCharacter.Activate();
         _ufoCharacter.Move(_ufoSpawnSystem.GetWayMovement());
     }
@@ -59,9 +59,9 @@ public class UFOManagerSystem : BaseSystem
 
     public void SetDeathEvent(BasicCharacter character)
     {
-        InitializeUFOApperiance();
-
         _scoringSystem.SetSacrifice(character);
+        
+        InitializeUFOApperiance();
     }
     public override void OffSystem()
     {

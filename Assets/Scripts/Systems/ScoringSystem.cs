@@ -25,8 +25,6 @@ public class ScoringSystem : BaseSystem
     {
         if (character.Killer == null || character.Killer.CharacterType != CharacterType.MainPlayer) return;
 
-        Debug.Log($"ScoringSystem.SetSacrifice: Был уничтожен - { character.CharacterType } уничтожителем { character.Killer.CharacterType } ");
-
         SetScoreByEnemyType(character);
     }
 

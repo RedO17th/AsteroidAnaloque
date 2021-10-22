@@ -29,10 +29,6 @@ public class Player : MovementCharacter
         _rotateSpeed = managerSystem.RotateSpeed;
     }
 
-    public override void Activate(bool state = true)
-    {
-        base.Activate(state);
-    }
     public void SetStartPosition(Vector3 position)
     {
         Position = position;

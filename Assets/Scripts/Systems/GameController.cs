@@ -11,10 +11,10 @@ public class GameController : MonoBehaviour
 
     public event Action OnStartGameEvent;
 
+    public bool IsSessionStart { get; private set; } = false;
+
     private const int _gameAtPause = 0;
     private const int _gameAtStart = 1;
-
-    private bool _isSessionStart = false;
 
     private void Awake()
     { 
@@ -54,7 +54,7 @@ public class GameController : MonoBehaviour
 
     private void PrepareToStart()
     {
-        if (_isSessionStart)
+        if (IsSessionStart)
         {
             ClearSystemData();
             SetPause(_gameAtStart);
@@ -67,7 +67,7 @@ public class GameController : MonoBehaviour
 
     private void SetSessionState(bool state) 
     {
-        _isSessionStart = state;
+        IsSessionStart = state;
     }
 
     private void StartGame()
