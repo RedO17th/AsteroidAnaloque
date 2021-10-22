@@ -46,6 +46,11 @@ public class Player : MovementCharacter
 
     private void Update()
     {
+        Vector3 miusePosition = Input.mousePosition;
+
+
+
+
         SetCorrectSpeed();
     }
     private void SetCorrectSpeed()
@@ -57,4 +62,6 @@ public class Player : MovementCharacter
     {
         _rigidbody.MoveRotation(transform.rotation * Quaternion.AngleAxis(_rotateSpeed, direction));
     }
+
+    
 }

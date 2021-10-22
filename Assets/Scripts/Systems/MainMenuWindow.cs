@@ -5,27 +5,20 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-public class MainMenuWindow : MonoBehaviour
+public class MainMenuWindow : BaseWindow
 {
     [SerializeField] private UIContinueButton _continueBtn;
 
     [SerializeField] private Button _newGameBtn;
     [SerializeField] private Button _exitBtn;
 
-    //Вынести в BaseWindow [TODO][FIX]
-    private UIManager _uiManager;
-    public void Constructor(UIManager uIManager)
+    public override void Activate(bool state)
     {
-        _uiManager = uIManager;
-    }
+        base.Activate(state);
 
-    public void Activate(bool state)
-    {
-        gameObject.SetActive(state);
-        _continueBtn.ActivateFunctional(_uiManager.UISystem.IsSessionStart);
         InitializeListeners();
+        _continueBtn.ActivateFunctional(_uiManager.UISystem.IsSessionStart);
     }
-    //
 
     private void Awake()
     {

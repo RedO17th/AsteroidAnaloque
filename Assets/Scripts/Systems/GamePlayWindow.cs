@@ -4,16 +4,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GamePlayWindow : MonoBehaviour
+public class GamePlayWindow : BaseWindow
 {
     [SerializeField] private UIScoreText _scoreText;
     [SerializeField] private Button _pauseBtn;
 
-    //Вынести в BaseWindow [TODO][FIX]
-    private UIManager _uiManager;
-    public void Constructor(UIManager uIManager)
+    public override void Constructor(UIManager uIManager)
     {
-        _uiManager = uIManager;
+        base.Constructor(uIManager);
         InitializeWindow();
     }
     private void InitializeWindow()
@@ -22,12 +20,11 @@ public class GamePlayWindow : MonoBehaviour
         _pauseBtn.onClick.AddListener(SetPauseUIMechanics);
     }
 
-    public void Activate(bool state)
+    public override void Activate(bool state)
     {
-        gameObject.SetActive(state);
+        base.Activate(state);
         _pauseBtn.onClick.AddListener(SetPauseUIMechanics);
     }
-    //
 
     private void SetPauseUIMechanics()
     {

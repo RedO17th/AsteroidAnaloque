@@ -33,21 +33,23 @@ public class UISystem : BaseSystem
 
     public void SetMainMenuMechanic(MainMenuMechanics mechanics)
     {
+        GameState state = GameState.None;
+
         switch (mechanics)
         {
             case MainMenuMechanics.Continue:
                 {
-                    _gameController.SetGameState(GameState.Continue);
+                    state = GameState.Continue;
                     break;
                 }
             case MainMenuMechanics.NewGame:
                 {
-                    _gameController.SetGameState(GameState.StartGame);
+                    state = GameState.StartGame;
                     break;
                 }
             case MainMenuMechanics.Pause:
                 {
-                    _gameController.SetGameState(GameState.Pause);
+                    state = GameState.Pause;
                     break;
                 }
             case MainMenuMechanics.Exit:
@@ -55,6 +57,8 @@ public class UISystem : BaseSystem
                     break;
                 }
         }
+
+        _gameController.SetGameState(state);
     }
 
     private void SetPlayerScore(int score)

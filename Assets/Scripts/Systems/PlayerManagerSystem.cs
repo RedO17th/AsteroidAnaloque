@@ -83,11 +83,13 @@ public class PlayerManagerSystem : BaseSystem
         _direction = verticalInput * transform.up * _accelerationSpeed;
         _player.Move(_direction);
     }
+
     private void RotateMechanic(float horizontalInput)
     {
         Vector3 _angleRotation = new Vector3(0f, 0f, -horizontalInput);
         _player.Rotate(_angleRotation);
     }
+
     private void ShootingMechanics()
     {
         _shootingMechanics.Shoot();

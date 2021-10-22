@@ -16,17 +16,31 @@ public class InputSystem : BaseSystem
     void Update()
     {
         //dir
-        float verticalInput = Input.GetAxis("Vertical");
-        if (verticalInput != 0f)
-            OnMovementEvent?.Invoke(verticalInput);
+        //float verticalInput = Input.GetAxis("Vertical");
+        //if (verticalInput != 0f)
+        //{
+        //    OnMovementEvent?.Invoke(verticalInput);            
+        //}
 
         //rot
-        float horizontalInput = Input.GetAxis("Horizontal");
-        if (horizontalInput != 0f)
-            OnRotationEvent?.Invoke(horizontalInput);
+        //float horizontalInput = Input.GetAxis("Horizontal");
+        //if (horizontalInput != 0f)
+        //    OnRotationEvent?.Invoke(horizontalInput);
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        //if (Input.GetKeyDown(KeyCode.Space))
+        //    OnShootingEvent?.Invoke();
+
+
+
+        if (Input.GetKey(KeyCode.W) || Input.GetMouseButton(1) || Input.GetKey(KeyCode.UpArrow))
+        {
+            OnMovementEvent?.Invoke(1f);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
+        {
             OnShootingEvent?.Invoke();
+        }
 
     }
 }

@@ -3344,7 +3344,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2106525921
 Transform:
   m_ObjectHideFlags: 0
@@ -3500,6 +3500,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _type: 9
+  _totalScore: 0
   _scoreList:
   - _enemyType: 0
     _score: 20
@@ -3509,4 +3510,3 @@ MonoBehaviour:
     _score: 100
   - _enemyType: 3
     _score: 200
-  TotalScore: 0
