@@ -3,44 +3,62 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public abstract class BaseInput : MonoBehaviour
+{
+    [SerializeField] private InputSystem.InputType _inputType;
+
+    public InputSystem.InputType InputType => _inputType;
+
+    protected PlayerManagerSystem _playerManagerSystem;
+
+    public void Constructor(InputSystem system)
+    {
+        _playerManagerSystem = system.PlayerManagerSystem;
+    }
+
+    public abstract void SetControlMethods();
+    public abstract void UnSetControlMethods();
+}
+
 public class InputSystem : BaseSystem
 {
-    public delegate void MovementMessager(float value);
-    public event MovementMessager OnMovementEvent;
+    public enum InputType { None = -1, WithoutMouse, WithMouse}
 
-    public delegate void RotationMessager(float value);
-    public event RotationMessager OnRotationEvent;
+    [SerializeField] private List<BaseInput> _inputs;
 
-    public event Action OnShootingEvent;
+    public PlayerManagerSystem PlayerManagerSystem { get; private set; }
 
-    void Update()
+    private InputType _currentType = InputType.WithoutMouse;
+
+    protected override void InitializeData()
     {
-        //dir
-        //float verticalInput = Input.GetAxis("Vertical");
-        //if (verticalInput != 0f)
-        //{
-        //    OnMovementEvent?.Invoke(verticalInput);            
-        //}
-
-        //rot
-        //float horizontalInput = Input.GetAxis("Horizontal");
-        //if (horizontalInput != 0f)
-        //    OnRotationEvent?.Invoke(horizontalInput);
-
-        //if (Input.GetKeyDown(KeyCode.Space))
-        //    OnShootingEvent?.Invoke();
-
-
-
-        if (Input.GetKey(KeyCode.W) || Input.GetMouseButton(1) || Input.GetKey(KeyCode.UpArrow))
-        {
-            OnMovementEvent?.Invoke(1f);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
-        {
-            OnShootingEvent?.Invoke();
-        }
-
+        PlayerManagerSystem = (PlayerManagerSystem)_systemInitializer.GetSystem(SystemType.PlayerManagerSys);
     }
+
+    public override void AdditionalInitialize()
+    {
+        for (int i = 0; i < _inputs.Count; i++)
+            _inputs[i].Constructor(this);
+
+        SomeMethod();
+    }
+
+    private void SomeMethod()
+    {
+        BaseInput inputWithoutMouse = GetInput(_currentType);
+        inputWithoutMouse.SetControlMethods();
+    }
+
+    private BaseInput GetInput(InputType type)
+    {
+        BaseInput input = null;
+        for (int i = 0; i < _inputs.Count; i++)
+        {
+            if (_inputs[i].InputType == type)
+                input = _inputs[i];
+        }
+
+        return input;
+    }
+
 }

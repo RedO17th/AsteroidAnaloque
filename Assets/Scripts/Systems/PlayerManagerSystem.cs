@@ -45,7 +45,7 @@ public class PlayerManagerSystem : BaseSystem
     private void InitializePlayerAppearence()
     {
         PreparePlayer();
-        SetInputEvents();
+        //SetInputEvents();
         _invulnerabilityTimer = StartCoroutine(InvulnerabilityTimer());
     }
 
@@ -58,15 +58,17 @@ public class PlayerManagerSystem : BaseSystem
 
     private void SetInputEvents()
     {
-        inputSystem.OnMovementEvent += MovementMechanic;
-        inputSystem.OnRotationEvent += RotateMechanic;
-        inputSystem.OnShootingEvent += ShootingMechanics;
+        //inputSystem.OnMovementEvent += MovementMechanic;
+        //inputSystem.OnShootingEvent += ShootingMechanics;
+
+        //inputSystem.OnRotationEvent += RotateMechanic;
     }
     private void UnSetInputEvents()
     {
-        inputSystem.OnMovementEvent -= MovementMechanic;
-        inputSystem.OnRotationEvent -= RotateMechanic;
-        inputSystem.OnShootingEvent -= ShootingMechanics;
+        //inputSystem.OnMovementEvent -= MovementMechanic;
+        //inputSystem.OnShootingEvent -= ShootingMechanics;
+
+        //inputSystem.OnRotationEvent -= RotateMechanic;
     }
 
     IEnumerator InvulnerabilityTimer()
@@ -78,19 +80,19 @@ public class PlayerManagerSystem : BaseSystem
         _flashingMechanics.TurnOffMechanics();
     }
 
-    private void MovementMechanic(float verticalInput)
+    public void MovementMechanic(float verticalInput)
     {
-        _direction = verticalInput * transform.up * _accelerationSpeed;
+        _direction = verticalInput * transform.forward * _accelerationSpeed;
         _player.Move(_direction);
     }
 
-    private void RotateMechanic(float horizontalInput)
+    public void RotateMechanic(float horizontalInput)
     {
-        Vector3 _angleRotation = new Vector3(0f, 0f, -horizontalInput);
+        Vector3 _angleRotation = new Vector3(0f, horizontalInput, 0f);
         _player.Rotate(_angleRotation);
     }
 
-    private void ShootingMechanics()
+    public void ShootingMechanics()
     {
         _shootingMechanics.Shoot();
     }

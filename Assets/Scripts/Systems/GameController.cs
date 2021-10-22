@@ -21,6 +21,7 @@ public class GameController : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         _systemInitializer.Constructor(this);
+
         _systemInitializer.InitializeSystems();
         _systemInitializer.AdditionalInitialize();
     }
