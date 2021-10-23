@@ -21,8 +21,10 @@ public class PlayerManagerSystem : BaseSystem
     public float MaxSpeed => _maxMoveSpeed;
     public float RotateSpeed => _rotateSpeed;
     public Player Player => _player;
+    public ScreenSystem ScreenSystem => _screenSystem;
 
     private InputSystem inputSystem;
+    private ScreenSystem _screenSystem;
 
     private Vector3 _direction = Vector3.zero;
 
@@ -32,6 +34,7 @@ public class PlayerManagerSystem : BaseSystem
     {
         _systemInitializer.GameController.OnStartGameEvent += InitializePlayerAppearence;
         inputSystem = (InputSystem)_systemInitializer.GetSystem(SystemType.InputSys);
+        _screenSystem = (ScreenSystem)_systemInitializer.GetSystem(SystemType.ScreenSys);
 
         _player.Constructor(this);
 
@@ -46,7 +49,23 @@ public class PlayerManagerSystem : BaseSystem
     {
         PreparePlayer();
         //SetInputEvents();
+        SetStartFlashingMechanic();
+    }
+
+    public void SetStartFlashingMechanic()
+    {
         _invulnerabilityTimer = StartCoroutine(InvulnerabilityTimer());
+    }
+
+    IEnumerator InvulnerabilityTimer()
+    {
+        _player.ViewObject.ActiveCollider(false);
+        _flashingMechanics.Activate();
+
+        yield return new WaitForSeconds(_invulnerabilityime);
+
+        _flashingMechanics.TurnOffMechanics();
+        _player.ViewObject.ActiveCollider();
     }
 
     private void PreparePlayer()
@@ -69,15 +88,6 @@ public class PlayerManagerSystem : BaseSystem
         //inputSystem.OnShootingEvent -= ShootingMechanics;
 
         //inputSystem.OnRotationEvent -= RotateMechanic;
-    }
-
-    IEnumerator InvulnerabilityTimer()
-    {
-        _flashingMechanics.Activate();
-
-        yield return new WaitForSeconds(_invulnerabilityime);
-
-        _flashingMechanics.TurnOffMechanics();
     }
 
     public void MovementMechanic(float verticalInput)

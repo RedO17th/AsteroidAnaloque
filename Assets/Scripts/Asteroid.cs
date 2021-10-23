@@ -12,13 +12,14 @@ public class Asteroid : MovementCharacter
     public void Constructor(AsteroidsManagerSystem manager)
     {
         _asteroidsManagerSystem = manager;
-        InitializeView();
+        InitializeData();
     }
 
-    private void InitializeView()
+    private void InitializeData()
     {
         _view.Initialize(this);
         _asteroidView = (AsteroidView)_view;
+        _baseCollisionMechanics.Constructor(this);
     }
 
     public override void Move(Vector3 direction)
@@ -59,8 +60,4 @@ public class Asteroid : MovementCharacter
     {
         _rigidbody.velocity = Vector3.zero;
     }
-
-
-
-   
 }

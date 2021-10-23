@@ -6,7 +6,7 @@ public class BaseCollisionMechanics : MonoBehaviour
 {
     protected BasicCharacter _ownerCharacter;
 
-    public void Constructor(BasicCharacter character)
+    public virtual void Constructor(BasicCharacter character)
     {
         _ownerCharacter = character;
     }

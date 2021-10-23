@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 6165193252196802573}
   - component: {fileID: 6165193252196802575}
   - component: {fileID: 6165193252196802574}
+  - component: {fileID: 5345787266266415897}
+  - component: {fileID: 6867840661883614097}
   m_Layer: 6
   m_Name: Asteroid
   m_TagString: Untagged
@@ -63,10 +65,35 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _type: 1
   _view: {fileID: 942047814729747503}
-  _baseCollisionMechanics: {fileID: 0}
+  _baseCollisionMechanics: {fileID: 6867840661883614097}
   _amountHealth: 1
   _amountCollisionDamage: 0
   _typeSize: 0
+--- !u!135 &5345787266266415897
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6165193252196802572}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6867840661883614097
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6165193252196802572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb759f74a6a268a48b40c88971ffe2e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6165193252231365275
 GameObject:
   m_ObjectHideFlags: 0
@@ -206,3 +233,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1885a6a291ea1e4086a0a1545e6ac0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _character: {fileID: 0}

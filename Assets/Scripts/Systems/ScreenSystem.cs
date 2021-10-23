@@ -3,10 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public enum ScreenAxis { None = -1, HorizontalAxis, VerticalAxis }
+public enum TriggerSide { None = -1, Upper, Right, Bottom, Left }
 
 public class ScreenSystem : BaseSystem
 {
+    public delegate TriggerSide CheckSideCharacter(Vector3 position);
+    CheckSideCharacter _sideMethodsList;
+
     [SerializeField] private List<ScreenOutSideTrigger> _outSideTriggers;
+    [SerializeField] private float _outSideOffset = 1f;
 
     public float XMaxCoord => _xMaxCoord;
     public float YMaxCoord => _yMaxCoord;
@@ -21,6 +26,11 @@ public class ScreenSystem : BaseSystem
 
         for (int i = 0; i < _outSideTriggers.Count; i++)
             _outSideTriggers[i].Constructor(this);
+
+        _sideMethodsList += CheckUpperSide;
+        _sideMethodsList += CheckBottomSide;
+        _sideMethodsList += CheckRightSide;
+        _sideMethodsList += CheckleftSide;
     }
 
     private float GetXMaxWayLength()
@@ -75,4 +85,52 @@ public class ScreenSystem : BaseSystem
         return newPosition;
     }
 
+    public void CheckPlayerPosition(SpatialCharacter character)
+    {
+        TriggerSide side = TriggerSide.None;
+
+        for (int i = 0; i < _sideMethodsList.GetInvocationList().Length; i++)
+        {
+            var checkSide = _sideMethodsList.GetInvocationList()[i];
+            side = (TriggerSide)checkSide.DynamicInvoke(character.Position);
+
+            if (side != TriggerSide.None)
+                break;
+        }
+
+        ScreenOutSideTrigger trigger = GetTriggerByside(side);
+
+        if(trigger)
+            TeleportObject(trigger, character);
+    }
+
+    private TriggerSide CheckUpperSide(Vector3 position)
+    {
+        return (position.y > (_yMaxCoord + _outSideOffset)) ? TriggerSide.Upper : TriggerSide.None;
+    }
+    private TriggerSide CheckBottomSide(Vector3 position)
+    {
+        return (position.y < (-_yMaxCoord - _outSideOffset)) ? TriggerSide.Bottom : TriggerSide.None;
+    }
+
+    private TriggerSide CheckRightSide(Vector3 position)
+    {
+        return (position.x > (_xMaxCoord + _outSideOffset)) ? TriggerSide.Right : TriggerSide.None;
+    }
+    private TriggerSide CheckleftSide(Vector3 position)
+    {
+        return (position.x < (-_xMaxCoord - _outSideOffset)) ? TriggerSide.Left : TriggerSide.None;
+    }
+
+    private ScreenOutSideTrigger GetTriggerByside(TriggerSide side) 
+    {
+        ScreenOutSideTrigger trigger = null;
+        for (int i = 0; i < _outSideTriggers.Count; i++)
+        {
+            if (_outSideTriggers[i].TriggerSide == side)
+                trigger = _outSideTriggers[i];
+        }
+
+        return trigger;
+    }
 }

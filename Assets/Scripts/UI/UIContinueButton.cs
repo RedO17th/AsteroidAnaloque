@@ -7,7 +7,7 @@ public class UIContinueButton : MonoBehaviour
 {
     private Button _continueButton;
 
-    private void Awake()
+    public void Initialize() 
     {
         _continueButton = GetComponent<Button>();
     }
@@ -19,6 +19,8 @@ public class UIContinueButton : MonoBehaviour
 
     public void AddLisener(UnityAction continueMethod)
     {
+        if (_continueButton == null) Debug.Log("_continueButton is null");
+
         _continueButton.onClick.AddListener(continueMethod);
     }
     public void RemoveListener(UnityAction continueMethod)

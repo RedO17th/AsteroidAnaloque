@@ -7,11 +7,16 @@ public abstract class BaseObjectView : MonoBehaviour
     public BasicCharacter Character => _character;
     public Collider Collider { get; private set; }
 
-    private BasicCharacter _character;
+    public BasicCharacter _character;
 
     public virtual void Initialize(BasicCharacter character) 
     {
         _character = character;
+    }
+
+    public void ActiveCollider(bool state = true)
+    {
+        Collider.enabled = state;
     }
 
     protected void GetCollider<T>() where T : Collider

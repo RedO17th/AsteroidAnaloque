@@ -10,7 +10,9 @@ public class Player : MovementCharacter
         private set => transform.rotation = value;
     }
 
-    private PlayerManagerSystem managerSystem;
+    public PlayerManagerSystem PlayerManagerSystem => _managerSystem;
+
+    private PlayerManagerSystem _managerSystem;
 
     private Vector3 _tempVelocity;
     private Vector3 _startVelocity = Vector3.zero;
@@ -20,13 +22,14 @@ public class Player : MovementCharacter
 
     public void Constructor(PlayerManagerSystem manager)
     {
-        managerSystem = manager;
+        _managerSystem = manager;
 
         _view.Initialize(this);
+        _baseCollisionMechanics.Constructor(this);
 
         _tempRotation = Rotation;
         _tempVelocity = _startVelocity;
-        _rotateSpeed = managerSystem.RotateSpeed;
+        _rotateSpeed = _managerSystem.RotateSpeed;
     }
 
     public void SetStartPosition(Vector3 position)
@@ -57,22 +60,34 @@ public class Player : MovementCharacter
 
 
 
+        _managerSystem.ScreenSystem.CheckPlayerPosition(this);
 
-
-        //SetCorrectSpeed();
+        SetCorrectSpeed();
     }
     private void SetCorrectSpeed()
     {
-        _rigidbody.velocity = Vector2.ClampMagnitude(_rigidbody.velocity, managerSystem.MaxSpeed);
+        _rigidbody.velocity = Vector2.ClampMagnitude(_rigidbody.velocity, _managerSystem.MaxSpeed);
     }
 
     public void Rotate(Quaternion rotation)
     {
         _rigidbody.MoveRotation(rotation);
     }
-
     public override void Rotate(Vector3 direction)
     {
         _rigidbody.MoveRotation(transform.rotation * Quaternion.AngleAxis(_rotateSpeed, direction));
     }
+
+    
+
+    public override void SetDeath()
+    {
+        base.SetDeath();
+        Debug.Log($"Player.SetDeath");
+    }
+
+    //private void OnCollisionEnter(Collision collision)
+    //{
+    //    _managerSystem.SetStartFlashingMechanic();
+    //}
 }

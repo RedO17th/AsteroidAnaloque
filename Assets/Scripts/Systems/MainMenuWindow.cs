@@ -27,7 +27,9 @@ public class MainMenuWindow : BaseWindow
 
     private void InitializeListeners()
     {
+        _continueBtn.Initialize();
         _continueBtn.AddLisener(SetContinueUIMechanics);
+
         _newGameBtn.onClick.AddListener(SetNewGameUIMechanics);
         _exitBtn.onClick.AddListener(SetExitUIMechanics);
     }

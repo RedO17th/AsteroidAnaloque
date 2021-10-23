@@ -5,6 +5,7 @@ using UnityEngine;
 public class ScreenOutSideTrigger : MonoBehaviour
 {
     [SerializeField] private ScreenAxis _triggerAxis;
+    [SerializeField] private TriggerSide _triggerSide;
     [SerializeField] private Vector2 _reverseCoeff;
     
     [Range(-0.5f, 0.5f)]
@@ -13,6 +14,7 @@ public class ScreenOutSideTrigger : MonoBehaviour
     private ScreenSystem _screenSystem;
 
     public ScreenAxis TriggerAxis => _triggerAxis;
+    public TriggerSide TriggerSide => _triggerSide;
     public Vector2 ReverseCoeff => _reverseCoeff;
     public float AxisOffset => _axisOffset;
 
@@ -24,7 +26,7 @@ public class ScreenOutSideTrigger : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         SpatialCharacter character = other.attachedRigidbody.GetComponent<SpatialCharacter>();
-        if (character)
+        if (character && !(character is Player))
             _screenSystem.TeleportObject(this, character);
     }
 }
