@@ -6,6 +6,9 @@ public enum MainMenuMechanics { None = -1, Continue, NewGame, Pause, Exit }
 
 public class UISystem : BaseSystem
 {
+    public delegate void ChangeGameStateDelegate(GameState state);
+    public event ChangeGameStateDelegate OnChangeGameStateEvent;
+
     [SerializeField] private UIManager _uiManager;
 
     [SerializeField] private int _startScoreValue = 0;
@@ -33,6 +36,8 @@ public class UISystem : BaseSystem
         _uiManager.Constructor(this);
         _scoringSystem.OnSetScoreEvent += SetPlayerScore;
         _playerManagerSystem.OnPlayerDamageEvent += SetPlayerHealth;
+
+        OnChangeGameStateEvent += _gameController.SetGameState;
     }
 
     public void SetMainMenuMechanic(MainMenuMechanics mechanics)
@@ -62,7 +67,8 @@ public class UISystem : BaseSystem
                 }
         }
 
-        _gameController.SetGameState(state);
+        OnChangeGameStateEvent?.Invoke(state);
+        //_gameController.SetGameState(state);
     }
 
     private void SetPlayerScore(int score)
@@ -78,6 +84,7 @@ public class UISystem : BaseSystem
     private void OnDisable()
     {
         _scoringSystem.OnSetScoreEvent -= SetPlayerScore;
+        OnChangeGameStateEvent -= _gameController.SetGameState;
         _playerManagerSystem.OnPlayerDamageEvent -= SetPlayerHealth;
     }
 

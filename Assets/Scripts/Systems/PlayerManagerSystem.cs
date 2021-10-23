@@ -5,8 +5,11 @@ using UnityEngine;
 
 public class PlayerManagerSystem : BaseSystem
 {
+
+    public delegate void ChangeGameStateDelegate(GameState state);
+    public event ChangeGameStateDelegate OnChangeGameStateEvent;
+
     public event Action<int> OnPlayerDamageEvent;
-    public event Action OnPlayerDeadEvent;
 
     [SerializeField] private Player _player;
 
@@ -38,6 +41,8 @@ public class PlayerManagerSystem : BaseSystem
     protected override void InitializeData()
     {
         _systemInitializer.GameController.OnStartGameEvent += InitializePlayerAppearence;
+        OnChangeGameStateEvent += _systemInitializer.GameController.SetGameState;
+
         inputSystem = (InputSystem)_systemInitializer.GetSystem(SystemType.InputSys);
         _screenSystem = (ScreenSystem)_systemInitializer.GetSystem(SystemType.ScreenSys);
 
@@ -116,6 +121,8 @@ public class PlayerManagerSystem : BaseSystem
     private void OnDisable()
     {
         UnSetInputEvents();
+
+        OnChangeGameStateEvent -= _systemInitializer.GameController.SetGameState;
         _systemInitializer.GameController.OnStartGameEvent -= InitializePlayerAppearence;
     }
 
@@ -136,7 +143,6 @@ public class PlayerManagerSystem : BaseSystem
     }
     public void SetDeadPlayerEvent()
     {
-        //OnPlayerDeadEvent?.Invoke();
-        _systemInitializer.GameController.SetGameState(GameState.StartGame);
+        OnChangeGameStateEvent?.Invoke(GameState.StartGame);
     }
 }
