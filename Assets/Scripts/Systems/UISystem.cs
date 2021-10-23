@@ -12,23 +12,27 @@ public class UISystem : BaseSystem
 
     private GameController _gameController;
     private ScoringSystem _scoringSystem;
+    private PlayerManagerSystem _playerManagerSystem;
 
     public bool IsSessionStart
     {
         get => _gameController.IsSessionStart;
     }
     public int StartScoreValue => _startScoreValue;
+    public PlayerManagerSystem PlayerManagerSystem => _playerManagerSystem;
 
     protected override void InitializeData()
     {
         _gameController = _systemInitializer.GameController;
         _scoringSystem = (ScoringSystem)_systemInitializer.GetSystem(SystemType.ScoringSys);
+        _playerManagerSystem = (PlayerManagerSystem)_systemInitializer.GetSystem(SystemType.PlayerManagerSys);
     }
 
     public override void AdditionalInitialize()
     {
         _uiManager.Constructor(this);
         _scoringSystem.OnSetScoreEvent += SetPlayerScore;
+        _playerManagerSystem.OnPlayerDamageEvent += SetPlayerHealth;
     }
 
     public void SetMainMenuMechanic(MainMenuMechanics mechanics)
@@ -66,9 +70,15 @@ public class UISystem : BaseSystem
         _uiManager.SetScore(score);
     }
 
+    private void SetPlayerHealth(int amountHealth)
+    {
+        _uiManager.SetHealth(amountHealth);
+    }
+
     private void OnDisable()
     {
         _scoringSystem.OnSetScoreEvent -= SetPlayerScore;
+        _playerManagerSystem.OnPlayerDamageEvent -= SetPlayerHealth;
     }
 
 }

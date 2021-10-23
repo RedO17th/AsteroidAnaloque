@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class PlayerManagerSystem : BaseSystem
 {
+    public event Action<int> OnPlayerDamageEvent;
+    public event Action OnPlayerDeadEvent;
+
     [SerializeField] private Player _player;
 
     [Space]
@@ -13,11 +16,13 @@ public class PlayerManagerSystem : BaseSystem
     [SerializeField] private FlashingMechanics _flashingMechanics;
 
     //TO SO settings [TODO][FIX]
+    [SerializeField] private int _maxHealth = 5;
     [SerializeField] private float _maxMoveSpeed = 7f;
     [SerializeField] private float _accelerationSpeed = 5f;
     [SerializeField] private float _rotateSpeed = 10f;
     [SerializeField] private float _invulnerabilityime = 3f;
 
+    public int MaxHealth => _maxHealth;
     public float MaxSpeed => _maxMoveSpeed;
     public float RotateSpeed => _rotateSpeed;
     public Player Player => _player;
@@ -71,6 +76,7 @@ public class PlayerManagerSystem : BaseSystem
     private void PreparePlayer()
     {
         _player.Activate();
+        _player.SetAmountHealth(_maxHealth);
         _player.SetStartPosition(Vector3.zero);
         _player.SetRestSpeedAndRotation();
     }
@@ -122,5 +128,15 @@ public class PlayerManagerSystem : BaseSystem
 
         UnSetInputEvents();
         if(_invulnerabilityTimer != null) StopCoroutine(_invulnerabilityTimer);
+    }
+
+    public void SetDamageEvent(int amountHealth)
+    {
+        OnPlayerDamageEvent?.Invoke(amountHealth);
+    }
+    public void SetDeadPlayerEvent()
+    {
+        //OnPlayerDeadEvent?.Invoke();
+        _systemInitializer.GameController.SetGameState(GameState.StartGame);
     }
 }

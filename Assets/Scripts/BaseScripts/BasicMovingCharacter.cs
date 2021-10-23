@@ -21,18 +21,22 @@ public class BasicCharacter : MonoBehaviour
     {
         Killer = character;
     }
+    public void SetAmountHealth(int maxHealth)
+    {
+        _amountHealth = maxHealth;
+    }
 
     protected virtual void Awake()
     {
         _view.Initialize(this);
     }
 
-    public void TakeDamage(int amountDamage)
+    public virtual void TakeDamage(int amountDamage)
     {
         _amountHealth -= amountDamage;
         CheckHealth();
     }
-    private void CheckHealth()
+    protected void CheckHealth()
     {
         if (_amountHealth <= 0)
             SetDeath();

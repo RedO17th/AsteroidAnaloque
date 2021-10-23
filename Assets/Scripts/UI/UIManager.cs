@@ -15,12 +15,19 @@ public class UIManager : MonoBehaviour
     public void Constructor(UISystem uISystem)
     {
         _uiSystem = uISystem;
-    }
 
-    private void Awake()
-    {
         _mainMenuWindow.Constructor(this);
         _gamePlayWindow.Constructor(this);
+    }
+
+    //private void Awake()
+    //{
+    //    //_mainMenuWindow.Constructor(this);
+    //    //_gamePlayWindow.Constructor(this);
+    //}
+
+    private void Start()
+    {
     }
 
     public void SetUIAction(MainMenuMechanics mechanics)
@@ -75,5 +82,10 @@ public class UIManager : MonoBehaviour
     public void SetScore(int score)
     {
         _gamePlayWindow.SetScore(score);
+    }
+
+    public void SetHealth(int amountHealth)
+    {
+        _gamePlayWindow.SetHealth(amountHealth);
     }
 }

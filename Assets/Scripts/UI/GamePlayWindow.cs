@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class GamePlayWindow : BaseWindow
 {
     [SerializeField] private UIScoreText _scoreText;
+    [SerializeField] private UIHealthBar _healthBar;
     [SerializeField] private Button _pauseBtn;
 
     public override void Constructor(UIManager uIManager)
@@ -16,7 +17,8 @@ public class GamePlayWindow : BaseWindow
     }
     private void InitializeWindow()
     {
-        _scoreText.SetValue(0);
+        _scoreText.SetValue(_uiManager.UISystem.StartScoreValue);
+        _healthBar.Initialize(_uiManager.UISystem.PlayerManagerSystem.MaxHealth);
         _pauseBtn.onClick.AddListener(SetPauseUIMechanics);
     }
 
@@ -36,10 +38,15 @@ public class GamePlayWindow : BaseWindow
         _scoreText.SetValue(score);
     }
 
+    public void SetHealth(int amountHealth)
+    {
+        _healthBar.SetHealth(amountHealth);
+    }
+
     public void InitializeStartData()
     {
-        _scoreText.SetValue(0);
-        //Initialize health player
+        _scoreText.SetValue(_uiManager.UISystem.StartScoreValue);
+        _healthBar.SetHealth(_uiManager.UISystem.PlayerManagerSystem.MaxHealth);
     }
 
     private void OnDisable()

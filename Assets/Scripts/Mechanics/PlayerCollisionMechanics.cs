@@ -14,6 +14,10 @@ public class PlayerCollisionMechanics : BaseCollisionMechanics
 
     protected override void OnCollisionEnter(Collision collision)
     {
+        MovementCharacter character = collision.rigidbody.GetComponent<MovementCharacter>();
+        if (character)
+            character.TakeDamage(_ownerCharacter.AmountCollisionDamage);
+
         _player.PlayerManagerSystem.SetStartFlashingMechanic();
     }
 }

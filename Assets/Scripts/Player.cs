@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -31,6 +32,8 @@ public class Player : MovementCharacter
         _tempVelocity = _startVelocity;
         _rotateSpeed = _managerSystem.RotateSpeed;
     }
+
+
 
     public void SetStartPosition(Vector3 position)
     {
@@ -78,16 +81,18 @@ public class Player : MovementCharacter
         _rigidbody.MoveRotation(transform.rotation * Quaternion.AngleAxis(_rotateSpeed, direction));
     }
 
-    
+    public override void TakeDamage(int amountDamage)
+    {
+        _amountHealth -= amountDamage;
+        _managerSystem.SetDamageEvent(_amountHealth);
+        CheckHealth();
+    }
 
     public override void SetDeath()
     {
-        base.SetDeath();
         Debug.Log($"Player.SetDeath");
-    }
 
-    //private void OnCollisionEnter(Collision collision)
-    //{
-    //    _managerSystem.SetStartFlashingMechanic();
-    //}
+        base.SetDeath();
+        _managerSystem.SetDeadPlayerEvent();
+    }
 }

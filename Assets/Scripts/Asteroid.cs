@@ -51,13 +51,13 @@ public class Asteroid : MovementCharacter
         SetStopMovement();
     }
 
-    public void Destroy()
-    {
-        Destroy(gameObject);
-    }
-
     private void SetStopMovement()
     {
         _rigidbody.velocity = Vector3.zero;
+    }
+
+    public void Destroy()
+    {
+        Destroy(gameObject);
     }
 }
