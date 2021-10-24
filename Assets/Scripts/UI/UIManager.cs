@@ -8,9 +8,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] private MainMenuWindow _mainMenuWindow;
     [SerializeField] private GamePlayWindow _gamePlayWindow;
 
-    private UISystem _uiSystem;
-
     public UISystem UISystem => _uiSystem;
+
+    private UISystem _uiSystem;
 
     public void Constructor(UISystem uISystem)
     {
@@ -18,16 +18,6 @@ public class UIManager : MonoBehaviour
 
         _mainMenuWindow.Constructor(this);
         _gamePlayWindow.Constructor(this);
-    }
-
-    //private void Awake()
-    //{
-    //    //_mainMenuWindow.Constructor(this);
-    //    //_gamePlayWindow.Constructor(this);
-    //}
-
-    private void Start()
-    {
     }
 
     public void SetUIAction(MainMenuMechanics mechanics)
@@ -87,5 +77,10 @@ public class UIManager : MonoBehaviour
     public void SetHealth(int amountHealth)
     {
         _gamePlayWindow.SetHealth(amountHealth);
+    }
+
+    public void SetInputType(InputSystem.InputType type)
+    {
+        _uiSystem.SetInputType(type);
     }
 }

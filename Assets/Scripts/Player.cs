@@ -10,7 +10,6 @@ public class Player : MovementCharacter
         get => transform.rotation;
         private set => transform.rotation = value;
     }
-
     public PlayerManagerSystem PlayerManagerSystem => _managerSystem;
 
     private PlayerManagerSystem _managerSystem;
@@ -33,8 +32,6 @@ public class Player : MovementCharacter
         _rotateSpeed = _managerSystem.RotateSpeed;
     }
 
-
-
     public void SetStartPosition(Vector3 position)
     {
         Position = position;
@@ -52,19 +49,7 @@ public class Player : MovementCharacter
 
     private void Update()
     {
-        //Через делегат передавать Позицию мыши, а в методе Манагера считать и возвращать Quaternion (обработанный через Lerp)
-
-        //Vector3 mousePosition = Input.mousePosition;
-
-        //Vector3 direction = (mousePosition - Position).normalized;
-        //Quaternion rotation = Quaternion.LookRotation(direction, -Vector3.forward);
-
-        //Rotate(Quaternion.Lerp(Rotation, rotation, Time.deltaTime));
-
-
-
         _managerSystem.ScreenSystem.CheckPlayerPosition(this);
-
         SetCorrectSpeed();
     }
     private void SetCorrectSpeed()

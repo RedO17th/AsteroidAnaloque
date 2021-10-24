@@ -8,19 +8,12 @@ using UnityEngine.UI;
 public class MainMenuWindow : BaseWindow
 {
     [SerializeField] private UIContinueButton _continueBtn;
+    [SerializeField] private UIToogleInputs _uiToogleInputs;
 
     [SerializeField] private Button _newGameBtn;
     [SerializeField] private Button _exitBtn;
 
-    public override void Activate(bool state)
-    {
-        base.Activate(state);
-
-        InitializeListeners();
-        _continueBtn.ActivateFunctional(_uiManager.UISystem.IsSessionStart);
-    }
-
-    private void Awake()
+    private void OnEnable()
     {
         InitializeListeners();
     }
@@ -29,6 +22,9 @@ public class MainMenuWindow : BaseWindow
     {
         _continueBtn.Initialize();
         _continueBtn.AddLisener(SetContinueUIMechanics);
+        _continueBtn.ActivateFunctional(_uiManager.UISystem.IsSessionStart);
+
+        _uiToogleInputs.Constructor(this);
 
         _newGameBtn.onClick.AddListener(SetNewGameUIMechanics);
         _exitBtn.onClick.AddListener(SetExitUIMechanics);
@@ -45,6 +41,11 @@ public class MainMenuWindow : BaseWindow
     private void SetExitUIMechanics()
     {
         _uiManager.SetUIAction(MainMenuMechanics.Exit);
+    }
+
+    public void SetInputType(InputSystem.InputType type)
+    {
+        _uiManager.SetInputType(type);
     }
 
     private void OnDisable()

@@ -15,12 +15,18 @@ public class InputWithMouse : BaseInput
 
     public override void SetControlMethods()
     {
+        OnMovementEvent += _playerManagerSystem.MovementMechanic;
+        OnShootingEvent += _playerManagerSystem.ShootingMechanics;
 
+        OnRotationTroughMouseEvent += _playerManagerSystem.RotateMechanic;
     }
 
     public override void UnSetControlMethods()
     {
+        OnMovementEvent -= _playerManagerSystem.MovementMechanic;
+        OnShootingEvent -= _playerManagerSystem.ShootingMechanics;
 
+        OnRotationTroughMouseEvent -= _playerManagerSystem.RotateMechanic;
     }
 
     void Update()

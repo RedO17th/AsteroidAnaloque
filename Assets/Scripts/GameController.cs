@@ -10,6 +10,8 @@ public class GameController : MonoBehaviour
     [SerializeField] private SystemInitializer _systemInitializer;
 
     public event Action OnStartGameEvent;
+    public event Action OnContinueGameEvent;
+    public event Action OnPauseGameEvent;
 
     public bool IsSessionStart { get; private set; } = false;
 
@@ -38,11 +40,15 @@ public class GameController : MonoBehaviour
             case GameState.Continue:
                 {
                     SetPause(_gameAtStart);
+                    //Включить функционал Инпутов
+                    OnContinueGameEvent?.Invoke();
                     break;
                 }
             case GameState.Pause:
                 {
                     SetPause(_gameAtPause);
+                    //Выключить функционал Инпутов
+                    OnPauseGameEvent?.Invoke();
                     break;
                 }
             case GameState.ExitGame:

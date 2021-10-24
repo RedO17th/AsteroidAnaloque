@@ -31,7 +31,7 @@ public class PlayerManagerSystem : BaseSystem
     public Player Player => _player;
     public ScreenSystem ScreenSystem => _screenSystem;
 
-    private InputSystem inputSystem;
+    private InputSystem _inputSystem;
     private ScreenSystem _screenSystem;
 
     private Vector3 _direction = Vector3.zero;
@@ -43,7 +43,7 @@ public class PlayerManagerSystem : BaseSystem
         _systemInitializer.GameController.OnStartGameEvent += InitializePlayerAppearence;
         OnChangeGameStateEvent += _systemInitializer.GameController.SetGameState;
 
-        inputSystem = (InputSystem)_systemInitializer.GetSystem(SystemType.InputSys);
+        _inputSystem = (InputSystem)_systemInitializer.GetSystem(SystemType.InputSys);
         _screenSystem = (ScreenSystem)_systemInitializer.GetSystem(SystemType.ScreenSys);
 
         _player.Constructor(this);
@@ -58,7 +58,7 @@ public class PlayerManagerSystem : BaseSystem
     private void InitializePlayerAppearence()
     {
         PreparePlayer();
-        //SetInputEvents();
+        SetInputEvents();
         SetStartFlashingMechanic();
     }
 
@@ -88,17 +88,11 @@ public class PlayerManagerSystem : BaseSystem
 
     private void SetInputEvents()
     {
-        //inputSystem.OnMovementEvent += MovementMechanic;
-        //inputSystem.OnShootingEvent += ShootingMechanics;
-
-        //inputSystem.OnRotationEvent += RotateMechanic;
+        _inputSystem.SetInputMechanism();
     }
     private void UnSetInputEvents()
     {
-        //inputSystem.OnMovementEvent -= MovementMechanic;
-        //inputSystem.OnShootingEvent -= ShootingMechanics;
-
-        //inputSystem.OnRotationEvent -= RotateMechanic;
+        _inputSystem.UnSetInputMechanism();
     }
 
     public void MovementMechanic(float verticalInput)
@@ -111,6 +105,21 @@ public class PlayerManagerSystem : BaseSystem
     {
         Vector3 _angleRotation = new Vector3(0f, horizontalInput, 0f);
         _player.Rotate(_angleRotation);
+    }
+    public void RotateMechanic(Vector3 mousePosition)
+    {
+        if (_player.IsActivate) 
+        {
+            Vector3 mPosition = Camera.main.ScreenToWorldPoint(mousePosition);
+            Vector3 correctPosition = new Vector3(mPosition.x, mPosition.y, _player.Position.z);
+
+            Vector3 direction = (correctPosition - _player.Position).normalized;
+
+            Quaternion rotation = Quaternion.LookRotation(direction, -Vector3.forward);
+            Quaternion angleRotation = Quaternion.Lerp(_player.Rotation, rotation, Time.deltaTime);
+
+            _player.Rotate(angleRotation);            
+        }
     }
 
     public void ShootingMechanics()

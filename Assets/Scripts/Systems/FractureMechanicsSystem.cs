@@ -88,8 +88,6 @@ public class FractureMechanicsSystem : BaseSystem
 
         for (int i = 0; i < _amountNewAsteroids; i++)
         {
-            Debug.Log($"FractureMechanicsSystem.CreateNewAsteroid: i = { i } ");
-
             Asteroid newAsteroid = Create(asteroid, data, speed);
             _asteroidObjectPoolSystem.AddCurrentAsteroid(newAsteroid);
         }

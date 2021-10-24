@@ -12,8 +12,6 @@ public class PlayerShootingMechanics : BaseShootingMechanics
 
     public override void Shoot()
     {
-        Debug.Log($"PlayerShootingMechanics.Shoot");
-
         if (_isCanShoot && CheckBulletsStorage())
         {
             _isCanShoot = false;

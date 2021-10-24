@@ -65,6 +65,8 @@ public abstract class MovementCharacter : SpatialCharacter
 {
     protected Rigidbody _rigidbody;
 
+    public bool IsActivate { get; protected set; } = false; 
+
     protected override void Awake()
     {
         base.Awake();
@@ -73,6 +75,7 @@ public abstract class MovementCharacter : SpatialCharacter
 
     public virtual void Activate(bool state = true)
     {
+        IsActivate = state;
         gameObject.SetActive(state);
     }
 

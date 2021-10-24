@@ -13,20 +13,25 @@ public class UISystem : BaseSystem
 
     [SerializeField] private int _startScoreValue = 0;
 
-    private GameController _gameController;
-    private ScoringSystem _scoringSystem;
-    private PlayerManagerSystem _playerManagerSystem;
-
     public bool IsSessionStart
     {
         get => _gameController.IsSessionStart;
     }
     public int StartScoreValue => _startScoreValue;
     public PlayerManagerSystem PlayerManagerSystem => _playerManagerSystem;
+    public MainMenuMechanics GameStateAtUI { get; private set; }  = MainMenuMechanics.None;
+
+    private GameController _gameController;
+
+    private InputSystem _inputSystem;
+    private ScoringSystem _scoringSystem;
+    private PlayerManagerSystem _playerManagerSystem;
 
     protected override void InitializeData()
     {
         _gameController = _systemInitializer.GameController;
+
+        _inputSystem = (InputSystem)_systemInitializer.GetSystem(SystemType.InputSys);
         _scoringSystem = (ScoringSystem)_systemInitializer.GetSystem(SystemType.ScoringSys);
         _playerManagerSystem = (PlayerManagerSystem)_systemInitializer.GetSystem(SystemType.PlayerManagerSys);
     }
@@ -68,7 +73,6 @@ public class UISystem : BaseSystem
         }
 
         OnChangeGameStateEvent?.Invoke(state);
-        //_gameController.SetGameState(state);
     }
 
     private void SetPlayerScore(int score)
@@ -79,6 +83,16 @@ public class UISystem : BaseSystem
     private void SetPlayerHealth(int amountHealth)
     {
         _uiManager.SetHealth(amountHealth);
+    }
+
+    public void SetInputType(InputSystem.InputType type)
+    {
+        _inputSystem.SetInputType(type);
+    }
+
+    public bool IsGameStateAtUIEquals(MainMenuMechanics state) 
+    {
+        return GameStateAtUI == state;
     }
 
     private void OnDisable()
