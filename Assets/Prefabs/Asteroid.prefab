@@ -65,9 +65,10 @@ MonoBehaviour:
   _type: 1
   _view: {fileID: 942047814729747503}
   _baseCollisionMechanics: {fileID: 6867840661883614097}
-  _amountHealth: 1
   _amountCollisionDamage: 1
+  _amountHealth: 1
   _typeSize: 0
+  SoundType: 2
 --- !u!114 &6867840661883614097
 MonoBehaviour:
   m_ObjectHideFlags: 0

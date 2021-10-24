@@ -4,10 +4,18 @@ using UnityEngine;
 
 public class UFOShootingMechanics : BaseShootingMechanics
 {
-    [SerializeField] protected float _shotFrequencyMin = 2f;
-    [SerializeField] protected float _shotFrequencyMax = 5f;
-
     private Coroutine _timer;
+
+    private float _shotFrequencyMin = 2f;
+    private float _shotFrequencyMax = 5f;
+
+    public override void Constructor(SystemInitializer systemInitializer)
+    {
+        base.Constructor(systemInitializer);
+
+        _shotFrequencyMin = systemInitializer.Data.UFOData.ShotFrequencyMin;
+        _shotFrequencyMax = systemInitializer.Data.UFOData.ShotFrequencyMax;
+    }
 
     public override void Shoot()
     {

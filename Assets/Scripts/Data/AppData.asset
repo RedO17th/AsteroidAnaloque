@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 282f5643301466845a2f00566f74476d, type: 3}
+  m_Name: AppData
+  m_EditorClassIdentifier: 
+  _playerData: {fileID: 11400000, guid: d0303e22742a9d3429a611c55ff050cd, type: 2}
+  _asteroidData: {fileID: 11400000, guid: 8a283a27f90a38e41a4060dd27a839e7, type: 2}
+  _ufoData: {fileID: 11400000, guid: 0e8a4a7fd299af8418b46ad66e732b30, type: 2}

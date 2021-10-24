@@ -20,19 +20,21 @@ public class BaseShootingMechanics : BaseMechanic
     [SerializeField] protected BaseBullet _bulletPrefab;
     [SerializeField] protected int _amountBullets;
 
-    [SerializeField] protected float _bulletSpeed = 0f;
-
     public float BulletSpeed => _bulletSpeed;
     public float MaxWayLength { get; private set; } = 0;
 
     public List<BaseBullet> _bullets = new List<BaseBullet>();
     private const float _amountScreenParts = 2f;
 
+    protected float _bulletSpeed = 0f;
+
     public override void Constructor(SystemInitializer systemInitializer)
     {
         base.Constructor(systemInitializer);
 
         GetMaxWayLength((ScreenSystem)_systemInitializer.GetSystem(SystemType.ScreenSys));
+
+        _bulletSpeed = systemInitializer.Data.PlayerData.BulletSpeed;
     }
 
     protected void GetMaxWayLength(ScreenSystem screenSystem)

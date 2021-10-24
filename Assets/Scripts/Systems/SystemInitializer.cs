@@ -4,14 +4,15 @@ using UnityEngine;
 
 public enum SystemType { None = -1, PlayerManagerSys, InputSys, ScreenSys, AsteroidsManagerSys, SpawnAsteroidSys, 
                         AsteroidObjPoolSys, FractureMechSys, UFOManagerSys, UFOSpawner, ScoringSys,
-                        UISys }
+                        UISys, SoundSys }
 
 public class SystemInitializer : MonoBehaviour
 {
+    [SerializeField] private AppData _data;
     [SerializeField] private List<BaseSystem> _baseSystems;
 
     public GameController GameController { get; private set; }
-
+    public AppData Data => _data;
     public void Constructor(GameController controller)
     {
         GameController = controller;

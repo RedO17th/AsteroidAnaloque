@@ -5,6 +5,7 @@ public class Asteroid : MovementCharacter
     [SerializeField] private AsteroidsSizeType _typeSize;
 
     public AsteroidsSizeType TypeSize => _typeSize;
+    public SoundSystem.SoundType SoundType; //{ get; private set; } = SoundSystem.SoundType.BigAsteroid;
 
     private AsteroidsManagerSystem _asteroidsManagerSystem;
     private AsteroidView _asteroidView;
@@ -22,6 +23,12 @@ public class Asteroid : MovementCharacter
         _baseCollisionMechanics.Constructor(this);
     }
 
+    public override void Activate(bool state = true)
+    {
+        base.Activate(state);
+        _amountHealth = _asteroidsManagerSystem.SystemInitializer.Data.AsteroidData.MaxHealth;
+    }
+
     public override void Move(Vector3 direction)
     {
         _rigidbody.AddForce(direction, ForceMode.VelocityChange);
@@ -36,7 +43,11 @@ public class Asteroid : MovementCharacter
     {
         _typeSize = type;
     }
-        
+    public void SetTypeSound(SoundSystem.SoundType type)
+    {
+        SoundType = type;
+    }
+
     public Vector3 GetVelocity()
     {
         return _rigidbody.velocity;
@@ -44,6 +55,7 @@ public class Asteroid : MovementCharacter
 
     public override void SetDeath()
     {
+        SoundSystem.PlaySound(SoundType);
         _asteroidsManagerSystem.SetAsteroidDeathEvent(this);
 
         base.SetDeath();

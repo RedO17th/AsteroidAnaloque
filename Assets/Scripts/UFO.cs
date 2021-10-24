@@ -18,13 +18,16 @@ public class UFO : MovementCharacter
     private bool isDead = false;
     private bool targetLocked = false;
 
+    private float _maxMoveSpeed = 0f;
+
     public void Constructor(UFOManagerSystem manager)
     {
         _ufoManagerSystem = manager;
         _targetPlayer = manager.Player;
 
         _startRotation = Rotation;
-        
+        _maxMoveSpeed = _ufoManagerSystem.Data.UFOData.MaxMoveSpeed;
+
         _view.Initialize(this);
         _baseCollisionMechanics.Constructor(this);
     }
@@ -33,6 +36,7 @@ public class UFO : MovementCharacter
     {
         base.Activate(state);
         targetLocked = false;
+        _amountHealth = _ufoManagerSystem.Data.UFOData.MaxHealth;
     }
 
     public override void Move(Vector3 direction)
@@ -45,6 +49,12 @@ public class UFO : MovementCharacter
     {
         Rotate(new Vector3());
         CheckTargeting();
+        SetCorrectSpeed();
+    }
+
+    private void SetCorrectSpeed()
+    {
+        _rigidbody.velocity = Vector2.ClampMagnitude(_rigidbody.velocity, _maxMoveSpeed);
     }
 
     public override void Rotate(Vector3 direction)

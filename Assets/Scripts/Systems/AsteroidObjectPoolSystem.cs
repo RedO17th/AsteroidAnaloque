@@ -4,15 +4,6 @@ using UnityEngine;
 
 public class AsteroidObjectPoolSystem : BaseSystem
 {
-    [Header("Asteroid settings")]
-    [SerializeField] private int _maxAmountAsteroids = 5;
-    [Range(0.5f, 0.9f)]
-    [SerializeField] private float _areaTargetPoints = 0.5f;
-    [SerializeField] private float _minSpeed = 1f;
-    [SerializeField] private float _maxSpeed = 5f;
-    [SerializeField] private float _waveWaitingTime = 2f;
-    [SerializeField] private int _amountAtStartSession = 2;
-
     public List<Asteroid> _asteroids = new List<Asteroid>();
     public List<Asteroid> _curretAsteroids = new List<Asteroid>();
 
@@ -23,11 +14,20 @@ public class AsteroidObjectPoolSystem : BaseSystem
 
     private int _currentAmountAtSession = 0;
 
+    private int _maxAmountAsteroids = 5;
+    private float _areaTargetPoints = 0.5f;
+    private float _minSpeed = 1f;
+    private float _maxSpeed = 5f;
+    private float _waveWaitingTime = 2f;
+    private int _amountAtStartSession = 2;
+
     private float _xMaxCoord = 0f;
     private float _yMaxCoord = 0f;
 
     protected override void InitializeData()
     {
+        InitializeBlockData();
+
         _asteroidsManagerSystem = (AsteroidsManagerSystem)_systemInitializer.GetSystem(SystemType.AsteroidsManagerSys);
         _spawnAsteroidsSystem = (SpawnAsteroidsSystem)_systemInitializer.GetSystem(SystemType.SpawnAsteroidSys);
 
@@ -38,6 +38,18 @@ public class AsteroidObjectPoolSystem : BaseSystem
             Debug.LogError($"AsteroidObjectPoolSystem.InitializeData: Amount asteroids at session bigger than max amount");
 
         _currentAmountAtSession = _amountAtStartSession;
+    }
+
+    private void InitializeBlockData()
+    {
+        AsteroidData data = _systemInitializer.Data.AsteroidData;
+
+        _maxAmountAsteroids = data.MaxAmountAsteroids;
+        _amountAtStartSession = data.AmountAtStartSession;
+        _areaTargetPoints = data.AreaTargetPoints;
+        _minSpeed = data.MinSpeed;
+        _maxSpeed = data.MaxSpeed;
+        _waveWaitingTime = data.WaveWaitingTime;
     }
 
     public void InitializeAsteroids()

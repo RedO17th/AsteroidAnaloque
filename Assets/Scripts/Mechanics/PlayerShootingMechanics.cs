@@ -4,19 +4,26 @@ using UnityEngine;
 
 public class PlayerShootingMechanics : BaseShootingMechanics
 {
-    [SerializeField] protected float _shotFrequency = 0f;
+    private Coroutine _frequencyTimer;
 
     private bool _isCanShoot = true;
+    private float _shotFrequency = 0f;
 
-    private Coroutine _frequencyTimer;
+    public override void Constructor(SystemInitializer systemInitializer)
+    {
+        base.Constructor(systemInitializer);
+        _shotFrequency = _systemInitializer.Data.PlayerData.ShotFrequency;
+    }
 
     public override void Shoot()
     {
         if (_isCanShoot && CheckBulletsStorage())
         {
             _isCanShoot = false;
-
+          
             InitializeBullet();
+            SoundSystem.PlaySound(SoundSystem.SoundType.Shot);
+
             _frequencyTimer = StartCoroutine(FrequencyTimer());
         }
     }

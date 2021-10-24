@@ -9,13 +9,14 @@ public class BasicCharacter : MonoBehaviour
     [SerializeField] protected BaseObjectView _view;
     [SerializeField] protected BaseCollisionMechanics _baseCollisionMechanics;
 
-    [SerializeField] protected int _amountHealth;
     [SerializeField] protected int _amountCollisionDamage;
 
     public BaseObjectView ViewObject => _view;
     public int AmountCollisionDamage => _amountCollisionDamage;
     public BasicCharacter Killer { get; private set; }
     public ScoringSystem.CharacterType CharacterType => _type;
+
+    public int _amountHealth;
 
     public void SetKiller(BasicCharacter character)
     {

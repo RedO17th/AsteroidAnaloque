@@ -8,6 +8,9 @@ public class InputWithoutMouse : BaseInput
     public delegate void MovementMessager(float value);
     public event MovementMessager OnMovementEvent;
 
+    public delegate void StopMovementMessager();
+    public event StopMovementMessager OnStopMovementEvent;
+
     public event Action OnShootingEvent;
 
     public delegate void RotationMessager(float value);
@@ -16,6 +19,8 @@ public class InputWithoutMouse : BaseInput
     public override void SetControlMethods()
     {
         OnMovementEvent += _playerManagerSystem.MovementMechanic;
+        OnStopMovementEvent += _playerManagerSystem.SetStopMovementSound;
+
         OnShootingEvent += _playerManagerSystem.ShootingMechanics;
         OnRotationEvent += _playerManagerSystem.RotateMechanic;
     }
@@ -23,6 +28,8 @@ public class InputWithoutMouse : BaseInput
     public override void UnSetControlMethods()
     {
         OnMovementEvent -= _playerManagerSystem.MovementMechanic;
+        OnStopMovementEvent -= _playerManagerSystem.SetStopMovementSound;
+
         OnShootingEvent -= _playerManagerSystem.ShootingMechanics;
         OnRotationEvent -= _playerManagerSystem.RotateMechanic;
     }
@@ -33,6 +40,8 @@ public class InputWithoutMouse : BaseInput
         float verticalInput = Input.GetAxis("Vertical");
         if (verticalInput != 0f)
             OnMovementEvent?.Invoke(verticalInput);
+        else
+            OnStopMovementEvent?.Invoke();
 
         //rot
         float horizontalInput = Input.GetAxis("Horizontal");

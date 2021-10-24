@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f70bef659ba3a7944acd55dbe696f41f, type: 3}
+  m_Name: PlayerData
+  m_EditorClassIdentifier: 
+  _maxHealth: 5
+  _maxMoveSpeed: 2
+  _accelerationSpeed: 1.5
+  _invulnerabilityime: 3
+  _rotateSpeedWithMouse: 5
+  _rotateSpeedWithoutMouse: 3
+  _bulletSpeed: 25
+  _amountFlashingAtSec: 2
+  _shotFrequency: 1.5

@@ -7,16 +7,6 @@ using Random = UnityEngine.Random;
 public class UFOSpawnSystem : BaseSystem
 {
     public enum SpawnAxis { None = -1, HorizontalRight, HorizontalLeft }
-
-    [Tooltip("Vertical offset in percent")]
-    [Range(0.1f, 0.9f)]
-    [SerializeField] private float _verticalOffset = 0.8f;
-    [SerializeField] private float _sideSpawnOffset = 1f;
-
-    [Tooltip("Random time spawn")]
-    [SerializeField] private float _leftTimeBorder = 20f;
-    [SerializeField] private float _rightTimeBorder = 40f;
-
     public float WaitingTime
     {
         get 
@@ -39,8 +29,15 @@ public class UFOSpawnSystem : BaseSystem
     private float _yMaxCoord = 0f;
     private float _yMaxVerticalCoord = 0f;
 
+    private float _verticalOffset = 0.8f;
+    private float _sideSpawnOffset = 1f;
+    private float _leftTimeBorder = 20f;
+    private float _rightTimeBorder = 40f;
+
     protected override void InitializeData()
     {
+        InitializeBlocData();
+
         _screenSystem = (ScreenSystem)_systemInitializer.GetSystem(SystemType.ScreenSys);
         _ufoManagerSystem = (UFOManagerSystem)_systemInitializer.GetSystem(SystemType.UFOManagerSys);
         _ufo = _ufoManagerSystem.UFOCharacter;
@@ -49,7 +46,17 @@ public class UFOSpawnSystem : BaseSystem
         _yMaxCoord = _screenSystem.YMaxCoord;
 
         _yMaxVerticalCoord = _yMaxCoord * _verticalOffset;
-    }   
+    }
+
+    private void InitializeBlocData()
+    {
+        UFOData data = _systemInitializer.Data.UFOData;
+
+        _verticalOffset = data.VerticalOffset;
+        _sideSpawnOffset = data.SideSpawnOffset;
+        _leftTimeBorder = data.LeftTimeBorder;
+        _rightTimeBorder = data.RrightTimeBorder;
+    }
 
     public Vector3 GetSpacePosition()
     {

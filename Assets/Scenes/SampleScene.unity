@@ -1267,7 +1267,6 @@ MonoBehaviour:
   _type: 7
   _shootingMechanics: {fileID: 637539717}
   _ufoCharacter: {fileID: 637539714}
-  _timeToCrossScreen: 10
 --- !u!1 &464447922
 GameObject:
   m_ObjectHideFlags: 0
@@ -1645,8 +1644,8 @@ MonoBehaviour:
   _type: 2
   _view: {fileID: 719228250}
   _baseCollisionMechanics: {fileID: 637539718}
-  _amountHealth: 1
   _amountCollisionDamage: 1
+  _amountHealth: 0
 --- !u!54 &637539715
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1678,10 +1677,7 @@ MonoBehaviour:
   _bulletSpawner: {fileID: 154919221}
   _bulletPrefab: {fileID: 993159179477875276, guid: 429cdad48b93a134b94421e215305049, type: 3}
   _amountBullets: 3
-  _bulletSpeed: 25
   _bullets: []
-  _shotFrequencyMin: 2
-  _shotFrequencyMax: 5
 --- !u!114 &637539718
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2081,12 +2077,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _type: 5
-  _maxAmountAsteroids: 3
-  _areaTargetPoints: 0.5
-  _minSpeed: 1
-  _maxSpeed: 2
-  _waveWaitingTime: 2
-  _amountAtStartSession: 1
   _asteroids: []
   _curretAsteroids: []
 --- !u!1 &782659716
@@ -2292,10 +2282,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _type: 8
-  _verticalOffset: 0.8
-  _sideSpawnOffset: 0.7
-  _leftTimeBorder: 20
-  _rightTimeBorder: 40
 --- !u!1 &921622082
 GameObject:
   m_ObjectHideFlags: 0
@@ -2990,11 +2976,6 @@ MonoBehaviour:
   _player: {fileID: 2106525923}
   _shootingMechanics: {fileID: 2106525925}
   _flashingMechanics: {fileID: 2106525927}
-  _maxHealth: 5
-  _maxMoveSpeed: 3
-  _accelerationSpeed: 1
-  _rotateSpeed: 5
-  _invulnerabilityime: 3
 --- !u!1 &1307822279
 GameObject:
   m_ObjectHideFlags: 0
@@ -3039,8 +3020,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _type: 4
-  _axisSpawnOffset: 0.5
-  _sideSpawnOffset: 1
   _asteroidHandler: {fileID: 1021137640}
   _asteroidPrefab: {fileID: 6165193252196802574, guid: db287a3bbdc43bd4dacb6a1fcd4b3afb, type: 3}
 --- !u!1 &1333197512
@@ -4025,6 +4004,7 @@ Transform:
   - {fileID: 897017400}
   - {fileID: 387792852}
   - {fileID: 2138625052}
+  - {fileID: 1836465034}
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4040,6 +4020,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1cf5229feb19254eb19747bae98f0a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _data: {fileID: 11400000, guid: 55c4f23b6156e7a4db11afd099d3dc5b, type: 2}
   _baseSystems:
   - {fileID: 1367178861}
   - {fileID: 593538652}
@@ -4052,6 +4033,92 @@ MonoBehaviour:
   - {fileID: 387792853}
   - {fileID: 898338013}
   - {fileID: 2138625053}
+  - {fileID: 1836465035}
+--- !u!1 &1836465033
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1836465034}
+  - component: {fileID: 1836465035}
+  m_Layer: 0
+  m_Name: SoundSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1836465034
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1836465033}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1827744314}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1836465035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1836465033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e53e53d597bf6614b94954c2bd63e2ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _type: 11
+  sounds:
+  - type: 0
+    audioClip: {fileID: 8300000, guid: fae73b36e6fd2af4c8974e321fb54365, type: 3}
+    audioSource: {fileID: 0}
+    volume: 1
+    pitch: 1
+    isLoop: 0
+    pitchRange: 0
+    playOnAwake: 0
+  - type: 1
+    audioClip: {fileID: 8300000, guid: 0e8b6db2b28d1894db9f547cb50b50d1, type: 3}
+    audioSource: {fileID: 0}
+    volume: 0.7
+    pitch: 1
+    isLoop: 1
+    pitchRange: 0
+    playOnAwake: 0
+  - type: 4
+    audioClip: {fileID: 8300000, guid: 0b2aceb9349ea29498a8dc395f1ad2a3, type: 3}
+    audioSource: {fileID: 0}
+    volume: 1
+    pitch: 1
+    isLoop: 0
+    pitchRange: 0
+    playOnAwake: 0
+  - type: 3
+    audioClip: {fileID: 8300000, guid: 21eb9b3ef5db6754d92044a3ac65cda6, type: 3}
+    audioSource: {fileID: 0}
+    volume: 1
+    pitch: 1
+    isLoop: 0
+    pitchRange: 0
+    playOnAwake: 0
+  - type: 2
+    audioClip: {fileID: 8300000, guid: 9d7dd516f06aefe4ea82bfb41024034b, type: 3}
+    audioSource: {fileID: 0}
+    volume: 1
+    pitch: 1
+    isLoop: 0
+    pitchRange: 0
+    playOnAwake: 0
 --- !u!1 &1898360499
 GameObject:
   m_ObjectHideFlags: 0
@@ -4401,11 +4468,11 @@ MonoBehaviour:
   _type: 6
   _scaleSize:
   - _size: 0
+    _soundType: 3
     _scale: 0.5
   - _size: 1
+    _soundType: 4
     _scale: 0.35
-  _amountNewAsteroids: 2
-  _divergenceAngle: 45
 --- !u!1001 &2068192558
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4551,8 +4618,8 @@ MonoBehaviour:
   _type: 0
   _view: {fileID: 825717689}
   _baseCollisionMechanics: {fileID: 2106525924}
-  _amountHealth: 5
   _amountCollisionDamage: 1
+  _amountHealth: 0
 --- !u!114 &2106525924
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4580,9 +4647,7 @@ MonoBehaviour:
   _bulletSpawner: {fileID: 1011313723}
   _bulletPrefab: {fileID: 993159179477875276, guid: 02b0acd66b126704dba27e3e54b8a900, type: 3}
   _amountBullets: 3
-  _bulletSpeed: 25
   _bullets: []
-  _shotFrequency: 3
 --- !u!114 &2106525927
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4595,7 +4660,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 255ebf603981e3f4cb91f590ff8625a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _amountFlashingAtSec: 2
 --- !u!1 &2123394832
 GameObject:
   m_ObjectHideFlags: 0

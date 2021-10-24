@@ -60,8 +60,6 @@ public class InputSystem : BaseSystem
 
     private void ContinueGameEvent()
     {
-        Debug.Log($"InputSystem.ContinueGameEvent");
-
         SetInputMechanism();
     }
     private void PauseGameEvent()

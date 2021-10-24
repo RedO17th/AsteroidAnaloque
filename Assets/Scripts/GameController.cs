@@ -40,14 +40,12 @@ public class GameController : MonoBehaviour
             case GameState.Continue:
                 {
                     SetPause(_gameAtStart);
-                    //Включить функционал Инпутов
                     OnContinueGameEvent?.Invoke();
                     break;
                 }
             case GameState.Pause:
                 {
                     SetPause(_gameAtPause);
-                    //Выключить функционал Инпутов
                     OnPauseGameEvent?.Invoke();
                     break;
                 }

@@ -11,9 +11,13 @@ public class BaseSystem : MonoBehaviour
     public SystemType Type => _type;
     public SystemInitializer SystemInitializer => _systemInitializer;
 
+    public AppData Data { get; private set; }
+
     public virtual void Constructor(SystemInitializer initializer)
     {
         _systemInitializer = initializer;
+
+        Data = initializer.Data;
         InitializeData();
     }
 

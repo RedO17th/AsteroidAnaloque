@@ -8,10 +8,6 @@ public class SpawnAsteroidsSystem : BaseSystem
 {
     public enum SpawnAxis { None = -1, VerticalUp, HorizontalRight, VerticalBottom, HorizontalLeft }
 
-    [Header("Additional settings")]
-    [SerializeField] private float _axisSpawnOffset = 0.5f;
-    [SerializeField] private float _sideSpawnOffset = 1f;
-
     [Header("Asteroid settings")]
     [SerializeField] private Transform _asteroidHandler;
     [SerializeField] private Asteroid _asteroidPrefab;
@@ -19,16 +15,29 @@ public class SpawnAsteroidsSystem : BaseSystem
     private AsteroidsManagerSystem _asteroidsManagerSystem;
     private AsteroidObjectPoolSystem _asteroidObjectPoolSystem;
 
+    private float _axisSpawnOffset = 0.5f;
+    private float _sideSpawnOffset = 1f;
+
     private float _xMaxCoord = 0f;
     private float _yMaxCoord = 0f;
 
     protected override void InitializeData()
     {
+        InitializeBlockData();
+
         _asteroidsManagerSystem = (AsteroidsManagerSystem)_systemInitializer.GetSystem(SystemType.AsteroidsManagerSys);
         _asteroidObjectPoolSystem = (AsteroidObjectPoolSystem)_systemInitializer.GetSystem(SystemType.AsteroidObjPoolSys);
 
         _xMaxCoord = _asteroidsManagerSystem.XMaxCoord;
         _yMaxCoord = _asteroidsManagerSystem.YMaxCoord;
+    }
+
+    private void InitializeBlockData()
+    {
+        AsteroidData data = _systemInitializer.Data.AsteroidData;
+
+        _axisSpawnOffset = data.AxisSpawnOffset;
+        _sideSpawnOffset = data.SideSpawnOffset;
     }
 
     public void ToPrepareAsteroids(int amount)

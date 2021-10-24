@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class FlashingMechanics : BaseMechanic
 {
-    [SerializeField] private int _amountFlashingAtSec = 2;
+    //[SerializeField] private int _amountFlashingAtSec = 2;
 
     private SpatialCharacter _character;
 
     private bool _isActive = true;
 
+    private int _amountFlashingAtSec = 2;
     private const float _oneSecond = 1f;
     private float _amountIteration = 2f;
 
@@ -17,6 +18,8 @@ public class FlashingMechanics : BaseMechanic
     {
         base.Constructor(systemInitializer);
         _character = ((PlayerManagerSystem)systemInitializer.GetSystem(SystemType.PlayerManagerSys)).Player;
+
+        _amountFlashingAtSec = systemInitializer.Data.PlayerData.AmountFlashingAtSec;
     }
 
     public void Activate()

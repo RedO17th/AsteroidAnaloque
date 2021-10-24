@@ -8,7 +8,6 @@ public class UFOManagerSystem : BaseSystem
     [SerializeField] private BaseShootingMechanics _shootingMechanics;
 
     [SerializeField] private UFO _ufoCharacter;
-    [SerializeField] private float _timeToCrossScreen = 10f;
 
     public UFO UFOCharacter => _ufoCharacter;
     public SpatialCharacter Player { get; private set; }
@@ -20,8 +19,12 @@ public class UFOManagerSystem : BaseSystem
 
     private Coroutine _waitingTimer;
 
+    private float _timeToCrossScreen = 10f;
+
     protected override void InitializeData()
     {
+        _timeToCrossScreen = _systemInitializer.Data.UFOData.TimeToCrossScreen;
+
         _systemInitializer.GameController.OnStartGameEvent += InitializeUFOApperiance;
         _playerManagerSystem = (PlayerManagerSystem)_systemInitializer.GetSystem(SystemType.PlayerManagerSys);
         _ufoSpawnSystem = (UFOSpawnSystem)_systemInitializer.GetSystem(SystemType.UFOSpawner);

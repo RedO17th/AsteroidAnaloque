@@ -29,7 +29,14 @@ public class Player : MovementCharacter
 
         _tempRotation = Rotation;
         _tempVelocity = _startVelocity;
-        _rotateSpeed = _managerSystem.RotateSpeed;
+        _rotateSpeed = _managerSystem.RotateSpeedWithoutMouse;
+    }
+
+    public override void Activate(bool state = true)
+    {
+        base.Activate(state);
+
+        _amountHealth = _managerSystem.MaxHealth;
     }
 
     public void SetStartPosition(Vector3 position)
