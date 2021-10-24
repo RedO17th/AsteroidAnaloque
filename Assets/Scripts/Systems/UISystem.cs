@@ -68,6 +68,7 @@ public class UISystem : BaseSystem
                 }
             case MainMenuMechanics.Exit:
                 {
+                    state = GameState.ExitGame;
                     break;
                 }
         }

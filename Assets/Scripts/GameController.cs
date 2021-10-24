@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public enum GameState { None = -1, StartGame, Continue, Pause, ExitGame }
@@ -92,6 +93,12 @@ public class GameController : MonoBehaviour
 
     private void ExitGame()
     {
-        //Добавить функционал выключения приложения
+        ClearSystemData();
+
+        #if UNITY_EDITOR
+            EditorApplication.isPlaying = false;
+        #else
+            Application.Quit();
+        #endif
     }
 }

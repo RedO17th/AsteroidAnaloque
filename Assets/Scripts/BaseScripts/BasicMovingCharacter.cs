@@ -16,7 +16,7 @@ public class BasicCharacter : MonoBehaviour
     public BasicCharacter Killer { get; private set; }
     public ScoringSystem.CharacterType CharacterType => _type;
 
-    public int _amountHealth;
+    protected int _amountHealth;
 
     public void SetKiller(BasicCharacter character)
     {
